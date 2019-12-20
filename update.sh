@@ -42,6 +42,8 @@ upd()
         exec $HOME/bin/termux-url-opener $ARGS
         exit 1
     fi
+    mkdir -p $HOME/bin
+    cp $WD_AYD/termux-url-opener $HOME/bin/termux-url-opener
     echo -e $YELLOW " Script up-to-date " $NC
 }
 
