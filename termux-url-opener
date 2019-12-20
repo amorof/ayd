@@ -33,7 +33,6 @@ upd
 
 #set -eu
 #--download-archive ${CONFIG}.desc \
-#
 #wait $DYT_PID
 if [[ $1 =~ ^.*youtu.*$ ]]; then
 
