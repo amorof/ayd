@@ -25,12 +25,14 @@ add_log()
 }
 
 pkg_install git
+
+add_log $GREEN "--> git pull <--"
 git pull 2>>log.txt| tail -n1 
 
 add_log $GREEN "--> pip install --upgrade youtube-dl <--"
 pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
 PID=$!
-echo "actualizando Youtube-dl"
+echo "Actualizando Youtube-dl"
 wait $PID
 
 
