@@ -41,7 +41,7 @@ upd()
         exec $HOME/bin/termux-url-opener $@
         exit 1
     fi
-    echo -e $YELLOW "Script up-to-date" $NC
+    echo -e $YELLOW "$@ Script up-to-date $#" $NC
 }
 
 termux-setup-storage &
