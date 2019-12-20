@@ -45,8 +45,6 @@ PID=$!
 echo "Actualizando Youtube-dl"
 wait $PID
 
-echo -e $RED
-echo "Youtube-dl Actualizado "
-echo -e $NC
+echo -e $RED "Youtube-dl Actualizado " $NC
 
 
