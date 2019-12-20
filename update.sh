@@ -1,5 +1,8 @@
 #!/bin/bash
-rm log.txt
+
+# si el fichero no existe sale, y si existe se borra, 
+# dejando en los dos casos un exit 0
+[! -e log.txt ] || rm log.txt
 date >log.txt
 pkg_install()
 {
