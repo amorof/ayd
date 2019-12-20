@@ -39,7 +39,7 @@ upd()
     echo -e $YELLOW "Script up-to-date" $NC
 }
 
-#pkg_install git
+pkg_install git
 
 upd
 
