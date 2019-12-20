@@ -42,7 +42,7 @@ upd()
     echo -e $YELLOW "Script up-to-date" $NC
 }
 
-setup-termux-storage &
+setup-termux-storage
 
 add_log $GREEN "--> Installing GIT <--"
 pkg_install git
