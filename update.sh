@@ -8,9 +8,9 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
+ARGS=$@
+NARGS=$#
 
-echo "$@"
-echo "$#"
 [ ! -e log.txt ] || rm log.txt
 
 date>>log.txt
@@ -33,8 +33,6 @@ add_log()
 
 upd()
 {
-    echo "$#"
-    echo "$@"
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
@@ -42,10 +40,10 @@ upd()
         cp $WD_AYD/termux-url-opener $HOME/bin/termux-url-opener
         chmod +x $HOME/bin/termux-url-opener
         chmod +x $SCRIPTNAME
-        exec $HOME/bin/termux-url-opener $@
+        exec $HOME/bin/termux-url-opener $ARGS
         exit 1
     fi
-    echo -e $YELLOW "$@ Script up-to-date $#" $NC
+    echo -e $YELLOW " Script up-to-date " $NC
 }
 
 termux-setup-storage &
