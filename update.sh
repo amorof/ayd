@@ -31,6 +31,7 @@ upd()
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
         git pull 2>>log.txt| tail -n1 
+        chmod +x $SCRIPTNAME
         exec $SCRIPTNAME
         exit 1
     fi
