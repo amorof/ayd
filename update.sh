@@ -8,7 +8,7 @@ pkg_install()
 }
 
 pkg_install git
-git fetch
+git pull
 pip install -upgrade youtube-dl &
 PID=$!
 echo "actualizando Youtube-dl"
