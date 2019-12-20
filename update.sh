@@ -21,7 +21,7 @@ pkg_install()
     #Si no esta instalado lo instala
     if [[ $(pkg list-installed 2>/dev/null| grep $1 | wc -l) -eq 0 ]]; then
         echo -e $YELLOW "Installing -> " $1 $NC
-        pkg install $1 2>/dev/null
+        pkg install $1 -y 2>/dev/null
     fi
 }
 
