@@ -13,6 +13,8 @@ NC='\033[0m'
 
 date>>log.txt
 
+WD_AYD=$(find $HOME -type d -name ayd )
+
 pkg_install()
 {
     #Si no esta instalado lo instala
@@ -29,11 +31,10 @@ add_log()
 
 upd()
 {
-    if [[ $(git fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
+    if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
         git pull --force 2>>log.txt| tail -n1
-        WD_AYD=$(find $HOME -type d -name ayd )
         cp $WD_AYD/termux-url-opener $HOME/bin/termux-url-opener
         chmod +x $HOME/bin/termux-url-opener
         chmod +x $SCRIPTNAME
