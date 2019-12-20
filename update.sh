@@ -25,7 +25,7 @@ add_log()
 }
 
 pkg_install git
-git pull | tail -n1
+git pull | tail -n1 2>>log.txt
 
 add_log $GREEN "--> pip install --upgrade youtube-dl <--"
 pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
