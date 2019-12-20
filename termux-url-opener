@@ -77,8 +77,14 @@ if [[ $1 =~ ^.*youtu.*$ ]]; then
 
 mkdir -p "${OUT_DIR}"
 cp -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
+cd "${TMP_DIR}/cooked"
+for file in * ; do
+    echo $file
+    mkdir -p ${OUT_DIR}/${file%%.*}
+    cp ${file} ${OUT_DIR}/${file%%.*}/${file}
+done
 
-#rm -rf "${TMP_DIR}"
+rm -rf "${TMP_DIR}"
 
 elif [[ $1 =~ ^.*nourlselected.*$ ]]; then
     echo "ERROR1"
