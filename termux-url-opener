@@ -7,14 +7,14 @@ NC='\033[0m'
 
 #echo -ne $BLUE "-> Updating Youtube-dl <-/r" $NC
 pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt
-DYT_PID=$!
+#DYT_PID=$!
 
 WD_AYD=$(find $HOME -type d -name ayd )
 upd()
 {
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
-        echo -e $GREEN "-> Updating Youtube-dl <-" $NC
-        wait $DYT_PID
+        echo -e $GREEN "-> $# Script neds to update $@ <-" $NC
+        #wait $DYT_PID
         exec $WD_AYD/update.sh $@
         exit 1
     fi
