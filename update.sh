@@ -30,7 +30,7 @@ upd()
     if [[ $(git fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
-        git pull 2>>log.txt| tail -n1 
+        git pull --force 2>>log.txt| tail -n1 
         chmod +x $SCRIPTNAME
         exec $SCRIPTNAME
         exit 1
