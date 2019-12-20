@@ -15,7 +15,7 @@ date>>log.txt
 pkg_install()
 {
     #Si no esta instalado lo instala
-    if [[ $(pkg list-installed | grep $1 | wc -l) -eq 0 ]]; then
+    if [[ $(pkg list-installed 2>/dev/null| grep $1 | wc -l) -eq 0 ]]; then
         echo -e $YELLOW "Instalando " $1 $NC
         pkg install $1 2>/dev/null
     fi
