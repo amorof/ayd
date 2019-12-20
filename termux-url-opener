@@ -36,7 +36,7 @@ upd
 #wait $DYT_PID
 if [[ $1 =~ ^.*youtu.*$ ]]; then
 
-    echo ${YELLOW} "Youtube-dl" ${NC}
+    echo -e ${YELLOW} "Youtube-dl" ${NC}
     TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
     OUT_DIR="/storage/emulated/0/Music/musica-dl"
     CONFIG="${HOME}/.config/musica-dl"
