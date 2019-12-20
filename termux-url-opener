@@ -14,7 +14,7 @@ WD_AYD=$(find $HOME -type d -name ayd )
 upd()
 {
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
-        echo -e $GREEN "->  Script neds to update  <-" $NC
+        echo -e $GREEN "Update found !" $NC
         #wait $DYT_PID
         exec $WD_AYD/update.sh $ARGS
         exit 1
@@ -36,7 +36,7 @@ upd
 #wait $DYT_PID
 if [[ $1 =~ ^.*youtu.*$ ]]; then
 
-    echo "${YELLOW}Youtube-dl${NC}"
+    echo ${YELLOW} "Youtube-dl" ${NC}
     TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
     OUT_DIR="/storage/emulated/0/Music/musica-dl"
     CONFIG="${HOME}/.config/musica-dl"

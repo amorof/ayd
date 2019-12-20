@@ -2,7 +2,6 @@
 
 # si el fichero no existe sale, y si existe se borra,
 # dejando en los dos casos un exit 0
-SCRIPTNAME=$0
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -39,7 +38,7 @@ upd()
         git -C $WD_AYD pull --force 2>>log.txt| tail -n1
         cp $WD_AYD/termux-url-opener $HOME/bin/termux-url-opener
         chmod +x $HOME/bin/termux-url-opener
-        chmod +x $SCRIPTNAME
+        chmod +x $WD_AYD/update.sh
         exec $HOME/bin/termux-url-opener $ARGS
         exit 1
     fi
