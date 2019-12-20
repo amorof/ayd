@@ -1,0 +1,4 @@
+Fri Dec 20 11:35:48 CET 2019
+[0;32m --> pip install --upgrade youtube-dl <-- [0m
+WARNING: You are using pip version 19.2.3, however version 19.3.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
