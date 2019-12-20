@@ -36,7 +36,7 @@ upd()
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
-        git pull --force 2>>log.txt| tail -n1
+        git -C $WD_AYD pull --force 2>>log.txt| tail -n1
         cp $WD_AYD/termux-url-opener $HOME/bin/termux-url-opener
         chmod +x $HOME/bin/termux-url-opener
         chmod +x $SCRIPTNAME
