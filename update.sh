@@ -8,6 +8,7 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
+
 [ ! -e log.txt ] || rm log.txt
 
 date>>log.txt
@@ -32,8 +33,10 @@ upd()
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
         git pull --force 2>>log.txt| tail -n1
+        mv termux-url-opener $HOME/bin/termux-url-opener
+        chmod +x $HOME/bin/termux-url-opener
         chmod +x $SCRIPTNAME
-        exec $SCRIPTNAME
+        exec $HOME/bin/termux-url-opener $@
         exit 1
     fi
     echo -e $YELLOW "Script up-to-date" $NC
@@ -43,8 +46,8 @@ pkg_install git
 
 upd
 
-
 add_log $GREEN "--> pip install --upgrade youtube-dl <--"
+
 pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
 PID=$!
 echo "Actualizando Youtube-dl"
