@@ -43,38 +43,40 @@ if [[ $1 =~ ^.*youtu.*$ ]]; then
 
     mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked
 
-     #  youtube-dl \
-     #          --ignore-errors \
-     #          --write-thumbnail \
-     #          --skip-download \
-     #          --output "${TMP_DIR}/cooked/%(title)s" \
-     #          -- "$@"
+    youtube-dl \
+        --ignore-errors \
+        --write-thumbnail \
+        --download-archive descargados-miniatura.txt \
+        --skip-download \
+        --output "${TMP_DIR}/cooked/%(title)s" \
+        -- "$@"
 
-     youtube-dl \
-         --ignore-errors \
-         --download-archive descargados.txt \
-         --format 'bestaudio' \
-         --output "${TMP_DIR}/raw/%(title)s" \
-         -- "$@"
+    youtube-dl \
+        --ignore-errors \
+        --download-archive descargados.txt \
+        --format 'bestaudio' \
+        --output "${TMP_DIR}/raw/%(title)s" \
+        -- "$@"
 
-     for file in "${TMP_DIR}/raw/"*; do
-         ffmpeg \
-             -hide_banner \
-             -i "$file" \
-             -codec:a libmp3lame \
-             -qscale:a 2 \
-             -vn \
-             -map_metadata -1 \
-             "${TMP_DIR}/cooked/${file##*/}.mp3"
-         done
+    for file in "${TMP_DIR}/raw/"*; do
+        ffmpeg \
+            -hide_banner \
+            -i "$file" \
+            -codec:a libmp3lame \
+            -qscale:a 2 \
+            -vn \
+            -map_metadata -1 \
+            "${TMP_DIR}/cooked/${file##*/}.mp3"
+        done
 
 #       if command -v eyeD3 >/dev/null; then
 #               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
 #       fi
 
 mkdir -p "${OUT_DIR}"
-mv -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
-rm -rf "${TMP_DIR}"
+cp -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
+
+#rm -rf "${TMP_DIR}"
 
 elif [[ $1 =~ ^.*nourlselected.*$ ]]; then
     echo "ERROR1"
