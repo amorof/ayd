@@ -14,7 +14,6 @@ PID=$!
 echo "actualizando Youtube-dl"
 wait $PID
 
-clear
 
 echo "Youtube-dl Actualizado "
 
