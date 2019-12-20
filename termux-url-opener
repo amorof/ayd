@@ -5,7 +5,7 @@ BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-echo -ne $BLUE "-> Actualizando Youtube-dl <-" $NC
+echo -ne $BLUE "-> Updating Youtube-dl <-/r" $NC
 pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
 DYT_PID=$!
 
@@ -14,24 +14,22 @@ upd()
 {
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         chmod +x $SCRIPTNAME
-        echo -ne $GREEN "-> Actualizando Youtube-dl <-" $NC
+        echo -ne $GREEN "-> Updating Youtube-dl <-/r" $NC
         wait $DYT_PID
         exec $WD_AYD $@
         exit 1
     fi
     echo -e $YELLOW "Ayd it's up to date" $NC
+
+    if [ $# -eq 0 ]; then
+        echo -e $BLUE "Instalation complete."
+        exit 0
+    fi
 }
 
 upd
 
-pip install --upgrade beets
-echo -ne "3333333333333333\r"
-sleep 1
-echo -ne "2222222222222222\r"
-sleep 1
-echo -ne "1111111111111111\r"
-sleep 1
-clear
+#pip install --upgrade beets
 
 #set -eu
 #--download-archive ${CONFIG}.desc \

@@ -17,7 +17,7 @@ pkg_install()
 {
     #Si no esta instalado lo instala
     if [[ $(pkg list-installed 2>/dev/null| grep $1 | wc -l) -eq 0 ]]; then
-        echo -e $YELLOW "Instalando " $1 $NC
+        echo -e $YELLOW "Installing -> " $1 $NC
         pkg install $1 2>/dev/null
     fi
 }
@@ -42,14 +42,18 @@ upd()
     echo -e $YELLOW "Script up-to-date" $NC
 }
 
+setup-termux-storage &
+
+add_log $GREEN "--> Installing GIT <--"
 pkg_install git
+add_log $GREEN "--> Installing FFMPEG <--"
+pkg_install ffmpeg
+add_log $GREEN "--> Installing PYTHON <--"
+pkg_install python
+add_log $GREEN "--> Installing PIP <--"
+pkg_install pip
+add_log $GREEN "--> pip install --upgrade youtube-dl <--"
+pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt
 
 upd
 
-add_log $GREEN "--> pip install --upgrade youtube-dl <--"
-
-pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
-PID=$!
-echo "Actualizando Youtube-dl"
-wait $PID
-echo -e $YELLOW "Youtube-dl Actualizado " $NC
