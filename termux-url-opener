@@ -14,7 +14,7 @@ upd()
 {
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         chmod +x $SCRIPTNAME
-        echo -ne $GREEN "-> Updating Youtube-dl <-/r" $NC
+        echo -e $GREEN "-> Updating Youtube-dl <-" $NC
         wait $DYT_PID
         exec $WD_AYD $@
         exit 1
@@ -22,7 +22,7 @@ upd()
     echo -e $YELLOW "Ayd it's up to date" $NC
 
     if [ $# -eq 0 ]; then
-        echo -e $BLUE "Instalation complete."
+        echo -e $BLUE "Instalation complete." $NC
         exit 0
     fi
 }

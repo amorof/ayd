@@ -42,7 +42,8 @@ upd()
     echo -e $YELLOW "Script up-to-date" $NC
 }
 
-setup-termux-storage
+termux-setup-storage &
+TSS_PID=$!
 
 add_log $GREEN "--> Installing GIT <--"
 pkg_install git
@@ -51,9 +52,11 @@ pkg_install ffmpeg
 add_log $GREEN "--> Installing PYTHON <--"
 pkg_install python
 add_log $GREEN "--> Installing PIP <--"
-pkg_install pip
+pip install --upgrade pip 1>/dev/null 2>>log.txt
 add_log $GREEN "--> pip install --upgrade youtube-dl <--"
 pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt
+
+wait $TSS_PID
 
 upd
 
