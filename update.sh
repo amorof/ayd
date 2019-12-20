@@ -28,11 +28,13 @@ add_log()
 upd()
 {
     if [[ $(git fetch --dry-run | wc -l) -gt 0 ]]; then
+        echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
         git pull 2>>log.txt| tail -n1 
         exec $SCRIPTNAME
         exit 1
     fi
+    echo -e $YELLOW "Script up-to-date" $NC
 }
 
 pkg_install git
