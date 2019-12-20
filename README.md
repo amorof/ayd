@@ -5,5 +5,6 @@ Android-Music-Download
 - $ pkg install git
 - $ git clone https://github.com/Bepitic/ayd.git
 - $ ./ayd/update.sh
-In one command :
+
+- In one command :
 - $ pkg install git -y; git clone https://github.com/Bepitic/ayd.git;./ayd/update.sh
