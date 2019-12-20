@@ -2,6 +2,7 @@
 
 # si el fichero no existe sale, y si existe se borra, 
 # dejando en los dos casos un exit 0
+SCRIPTNAME=$0
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -24,17 +25,23 @@ add_log()
     echo -e $1 $2 $NC>>log.txt 
 }
 
+upd()
+{
+    if [[ $(git fetch --dry-run | wc -l) -gt 0 ]]; then
+        add_log $GREEN "--> git pull <--"
+        git pull 2>>log.txt| tail -n1 
+        exec $SCRIPTNAME
+    fi
+}
+
 pkg_install git
 
-add_log $GREEN "--> git pull <--"
-git pull 2>>log.txt| tail -n1 
 
 add_log $GREEN "--> pip install --upgrade youtube-dl <--"
 pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
 PID=$!
 echo "Actualizando Youtube-dl"
 wait $PID
-
 
 echo "Youtube-dl Actualizado "
 
