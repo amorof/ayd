@@ -36,6 +36,7 @@ upd()
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
         git -C $WD_AYD pull --force 2>>log.txt| tail -n1
+        mkdir -p $HOME/bin
         cp $WD_AYD/termux-url-opener $HOME/bin/termux-url-opener
         chmod +x $HOME/bin/termux-url-opener
         chmod +x $WD_AYD/update.sh
