@@ -33,6 +33,8 @@ add_log()
 
 upd()
 {
+    echo "$#"
+    echo "$@"
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"

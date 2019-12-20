@@ -13,6 +13,8 @@ pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt
 WD_AYD=$(find $HOME -type d -name ayd )
 upd()
 {
+    echo "$#"
+    echo "$@"
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $GREEN "-> $# Script neds to update $@ <-" $NC
         #wait $DYT_PID
