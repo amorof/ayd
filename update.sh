@@ -2,8 +2,14 @@
 
 # si el fichero no existe sale, y si existe se borra, 
 # dejando en los dos casos un exit 0
-#[! -e log.txt ] || rm log.txt
-date>log.txt
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+[ ! -e log.txt ] || rm log.txt
+
+date>>log.txt
 
 pkg_install()
 {
@@ -15,13 +21,13 @@ pkg_install()
 
 add_log()
 {
-    echo $1 >log.txt
+    echo -e $1 $2 $NC>>log.txt 
 }
 
 pkg_install git
 git pull | tail -n1
 
-add_log "--> pip install --upgrade youtube-dl <--"
+add_log $GREEN "--> pip install --upgrade youtube-dl <--"
 pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
 PID=$!
 echo "actualizando Youtube-dl"
