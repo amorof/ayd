@@ -22,7 +22,7 @@ upd()
     echo -e $YELLOW "Ayd it's up to date" $NC
 
     if [ $NARGS -eq 0 ]; then
-        echo -e $BLUE "$@ n args = $# Instalation complete." $NC
+        echo -e $BLUE "Instalation complete." $NC
         exit 0
     fi
 }
