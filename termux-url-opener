@@ -72,6 +72,7 @@ if [[ $1 =~ ^.*youtu.*$ ]]; then
 #               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
 #       fi
 
+
 mkdir -p "${OUT_DIR}"
 mv -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
 rm -rf "${TMP_DIR}"
