@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # si el fichero no existe sale, y si existe se borra, 
 # dejando en los dos casos un exit 0
@@ -38,7 +39,7 @@ upd()
     echo -e $YELLOW "Script up-to-date" $NC
 }
 
-pkg_install git
+#pkg_install git
 
 upd
 
