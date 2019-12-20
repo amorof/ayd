@@ -36,6 +36,7 @@ upd()
 }
 
 pkg_install git
+
 upd
 
 
@@ -45,6 +46,6 @@ PID=$!
 echo "Actualizando Youtube-dl"
 wait $PID
 
-echo -e $RED "Youtube-dl Actualizado " $NC
+echo -e $YELLOW "Youtube-dl Actualizado " $NC
 
 
