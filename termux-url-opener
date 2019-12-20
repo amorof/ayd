@@ -49,7 +49,9 @@ if [[ $1 =~ ^.*youtu.*$ ]]; then
         --download-archive descargados-miniatura.txt \
         --skip-download \
         --output "${TMP_DIR}/cooked/%(title)s" \
-        -- "$@"
+        -- "$@" \
+        1>/dev/null &
+
 
     youtube-dl \
         --ignore-errors \
