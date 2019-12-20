@@ -48,4 +48,4 @@ pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
 PID=$!
 echo "Actualizando Youtube-dl"
 wait $PID
-echo -e $BLUE "Youtube-dl Actualizado " $NC
+echo -e $YELLOW "Youtube-dl Actualizado " $NC
