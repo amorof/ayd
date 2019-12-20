@@ -30,10 +30,10 @@ upd()
 upd
 
 #pip install --upgrade beets
-
 #set -eu
 #--download-archive ${CONFIG}.desc \
 #wait $DYT_PID
+
 if [[ $1 =~ ^.*youtu.*$ ]]; then
 
     echo -e ${YELLOW} "Youtube-dl" ${NC}
@@ -71,7 +71,6 @@ if [[ $1 =~ ^.*youtu.*$ ]]; then
 #       if command -v eyeD3 >/dev/null; then
 #               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
 #       fi
-
 
 mkdir -p "${OUT_DIR}"
 mv -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
