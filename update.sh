@@ -9,7 +9,7 @@ pkg_install()
 
 pkg_install git
 git pull | tail -n1
-pip install -upgrade youtube-dl &
+pip install -upgrade youtube-dl 1>/dev/null &
 PID=$!
 echo "actualizando Youtube-dl"
 wait $PID
