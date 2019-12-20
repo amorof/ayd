@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# si el fichero no existe sale, y si existe se borra, 
+# si el fichero no existe sale, y si existe se borra,
 # dejando en los dos casos un exit 0
 SCRIPTNAME=$0
 RED='\033[0;31m'
@@ -23,7 +23,7 @@ pkg_install()
 
 add_log()
 {
-    echo -e $1 $2 $NC>>log.txt 
+    echo -e $1 $2 $NC>>log.txt
 }
 
 upd()
@@ -31,7 +31,7 @@ upd()
     if [[ $(git fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
-        git pull --force 2>>log.txt| tail -n1 
+        git pull --force 2>>log.txt| tail -n1
         chmod +x $SCRIPTNAME
         exec $SCRIPTNAME
         exit 1
