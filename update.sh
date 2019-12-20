@@ -27,7 +27,7 @@ add_log()
 
 upd()
 {
-    if [[ $(git fetch --dry-run | wc -l) -gt 0 ]]; then
+    if [[ $(git fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $YELLOW "Upgrading script" $NC
         add_log $GREEN "--> git pull <--"
         git pull 2>>log.txt| tail -n1 
@@ -47,5 +47,5 @@ pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt &
 PID=$!
 echo "Actualizando Youtube-dl"
 wait $PID
-
+clear
 echo -e $BLUE "Youtube-dl Actualizado " $NC
