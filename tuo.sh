@@ -112,51 +112,53 @@ case "$1" in
 
             for file in "${TMP_DIR}/raw/"*; do
 
+                echo $file
+
                 mv ${file} "${TMP_DIR}/opt/"
 
-                ffmpeg \
-                    -hide_banner \
-                    -i "${TMP_DIR}"/opt/$(basename -- "${file}") \
-                    -codec:a libmp3lame \
-                    -qscale:a 2 \
-                    -vn \
-                    -map_metadata -1 \
-                    "${TMP_DIR}/cooked/${file##*/}.mp3" 1>/dev/null &
+              # ffmpeg \
+              #     -hide_banner \
+              #     -i "${TMP_DIR}"/opt/$(basename -- "${file}") \
+              #     -codec:a libmp3lame \
+              #     -qscale:a 2 \
+              #     -vn \
+              #     -map_metadata -1 \
+              #     "${TMP_DIR}/cooked/${file##*/}.mp3" 1>/dev/null &
 
-                FFMPEG_PID="$! $FFMPEG_PID"
+              # FFMPEG_PID="$! $FFMPEG_PID"
 
-                echo $FFMPEG_PID
+              # echo $FFMPEG_PID
 
-            done
+          done
 
-        done
+      done
 
-        wait $FFMPEG_PID
-        wait $YDL_PID
+#     wait $FFMPEG_PID
+#     wait $YDL_PID
 
-        mkdir -p "${OUT_DIR}"
-        for file in  "${TMP_DIR}"/cooked/* ; do
-            filenamebase=$(basename -- "$file")
-            extension="${filenamebase##*.}"
-            filename="${filenamebase%.*}"
-            #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+mkdir -p "${OUT_DIR}"
+for file in  "${TMP_DIR}"/cooked/* ; do
+    filenamebase=$(basename -- "$file")
+    extension="${filenamebase##*.}"
+    filename="${filenamebase%.*}"
+    #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
 
-            if [ ! "${extension}" = "jpg" ]; then
-                mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-                mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
-                rm "${TMP_DIR}/cooked/${filename}.jpg"
-                mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
-            fi
-        done
+    if [ ! "${extension}" = "jpg" ]; then
+        mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+        mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
+        rm "${TMP_DIR}/cooked/${filename}.jpg"
+        mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
+    fi
+done
 
-        cp -rf "${TMP_DIR}"/cooked/* "${OUT_DIR}"
+cp -rf "${TMP_DIR}"/cooked/* "${OUT_DIR}"
 
-        rm -rf "${TMP_DIR}"
+rm -rf "${TMP_DIR}"
 
-        ;;
-    *)
-        printf "Unhandled URL type: $1"
+;;
+*)
+    printf "Unhandled URL type: $1"
 esac
 
 clear
