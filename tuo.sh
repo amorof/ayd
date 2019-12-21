@@ -87,7 +87,6 @@ case "$1" in
     youtube-dl \
       --ignore-errors \
       --write-thumbnail \
-      --download-archive descargados-miniatura.txt \
       --skip-download \
       --output "${TMP_DIR}/cooked/%(title)s" \
       -- "$@" \
@@ -96,7 +95,6 @@ case "$1" in
 
     youtube-dl \
       --ignore-errors \
-      --download-archive descargados.txt \
       --format 'bestaudio' \
       --output "${TMP_DIR}/raw/%(title)s" \
       -- "$@"
@@ -117,8 +115,13 @@ case "$1" in
   #       fi
 
   mkdir -p "${OUT_DIR}"
-  ls "${TMP_DIR}"/cooked/*
-  sleep 20
+  for file in  "${TMP_DIR}"/cooked/* ; do
+    filename=$(basename -- "$file")
+    filename="${filename%.*}"
+    mkdir -p "${TMP_DIR}"/cooked/${filename}
+    mv $file "${TMP_DIR}"/cooked/${filename}/$(basename -- "$file")
+  done
+
   cp -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
   cd "${TMP_DIR}/cooked"
   for file in * ; do
