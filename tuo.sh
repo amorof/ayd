@@ -19,6 +19,7 @@ NC='\033[0m'
 # u -> Treat unasigned variables as errors.
 set -eu
 
+#Find where is the git directory of the program
 WD_AYD=$(find $HOME -type d -name ayd )
 
 if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
@@ -41,11 +42,9 @@ if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
   #show when its installed
   printf "$BLUE Upgraded  ayd      $NC \n"
 
-  #
   #execute the command with the new updated script
   exec $0 $@
   exit 1
-
 fi
 
 printf "$BLUE Done. $NC"
