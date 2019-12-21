@@ -123,7 +123,7 @@ case "$1" in
   done
   clear
 
-  cp -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
+  cp -f "${TMP_DIR}"/cooked/ "${OUT_DIR}"
 
   rm -rf "${TMP_DIR}"
 
