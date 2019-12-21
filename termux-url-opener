@@ -23,6 +23,8 @@ upd()
         ls -l $WD_AYD/update.sh
         echo -e $BLUE $WD_AYD/update.sh $NC
         exec $WD_AYD/update.sh $ARGS
+
+        sleep 10
         exit 1
     fi
     echo -e $YELLOW "Ayd it's up to date" $NC
@@ -30,6 +32,7 @@ upd()
 
     if [ $NARGS -eq 0 ]; then
         echo -e $BLUE "Instalation complete." $NC
+        sleep 10
         exit 0
     fi
 }
@@ -94,6 +97,8 @@ for file in * ; do
 done
 
 rm -rf "${TMP_DIR}"
+
+sleep 20
 
 elif [[ $1 =~ ^.*nourlselected.*$ ]]; then
     echo "ERROR1"
