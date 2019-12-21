@@ -19,7 +19,8 @@ NC='\033[0m'
 
 # e -> If a command exits with an error exits.
 # u -> Treat unasigned variables as errors.
-set -eu
+set -u
+#set -e
 
 #Find where is the git directory of the program
 WD_AYD=$(find $HOME -type d -name ayd )
@@ -32,13 +33,13 @@ if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
 
   #See if the process it's running then do things
   while kill -0 "$INS_PID" >/dev/null 2>&1; do
-    #play an animation while it's upgrading the script
-    printf "$GREEN Upgrading ayd (/) $NC \r"
-    sleep .3
-    printf "$GREEN Upgrading ayd (|) $NC \r"
-    sleep .3
-    printf "$GREEN Upgrading ayd (\) $NC \r"
-    sleep .3
+      #play an animation while it's upgrading the script
+      printf "$GREEN Upgrading ayd (/) $NC \r"
+      sleep .3
+      printf "$GREEN Upgrading ayd (|) $NC \r"
+      sleep .3
+      printf "$GREEN Upgrading ayd (\) $NC \r"
+      sleep .3
   done
 
   #show when its installed
@@ -51,8 +52,8 @@ fi
 
 pip_upg_if_need()
 {
-  #If it isn't updated then update
-  if [ $(pip list --outdated 2>&1 | grep $1 | wc -l) -gt 0 ] ; then
+    #If it isn't updated then update
+    if [ $(pip list --outdated 2>&1 | grep $1 | wc -l) -gt 0 ] ; then
 
     #Launch in background stdout and stderr don't show, then get the PID
     pip install --upgrade $1 1>/dev/null 2>/dev/null &
@@ -60,58 +61,58 @@ pip_upg_if_need()
 
     #See if the process it's running then do things
     while kill -0 "$INS_PID" >/dev/null 2>&1; do
-      #play an animation while it's installing the program
-      printf "$GREEN Upgrading $1 (/) $NC \r"
-      sleep .3
-      printf "$GREEN Upgrading $1 (|) $NC \r"
-      sleep .3
-      printf "$GREEN Upgrading $1 (\) $NC \r"
-      sleep .3
+        #play an animation while it's installing the program
+        printf "$GREEN Upgrading $1 (/) $NC \r"
+        sleep .3
+        printf "$GREEN Upgrading $1 (|) $NC \r"
+        sleep .3
+        printf "$GREEN Upgrading $1 (\) $NC \r"
+        sleep .3
     done
 
     #show when its installed
     printf "$BLUE Upgraded  $1        $NC \n"
-  fi
+    fi
 }
 
 pip_upg_if_need youtube-dl
 pip_upg_if_need mutagen
 
 case "$1" in
-*youtu*)
+    *youtu*)
 
-    printf "${YELLOW} Youtube-dl ${NC}\n"
-    TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
-    OUT_DIR="/storage/emulated/0/Music/ayd"
-    CONFIG="${HOME}/.config/musica-dl"
+        printf "${YELLOW} Youtube-dl ${NC}\n"
+        TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
+        OUT_DIR="/storage/emulated/0/Music/ayd"
+        CONFIG="${HOME}/.config/musica-dl"
 
-    mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked
+        mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked
 
-    youtube-dl \
-      --ignore-errors \
-      --write-thumbnail \
-      --skip-download \
-      --output "${TMP_DIR}/cooked/%(title)s" \
-      -- "$@" \
-      1>/dev/null &
+        youtube-dl \
+            --ignore-errors \
+            --write-thumbnail \
+            --skip-download \
+            --output "${TMP_DIR}/cooked/%(title)s" \
+            -- "$@" \
+            1>/dev/null &
 
 
-    youtube-dl \
-      --ignore-errors \
-      --format 'bestaudio' \
-      --output "${TMP_DIR}/raw/%(title)s" \
-      -- "$@"
+        youtube-dl \
+            --ignore-errors \
+            --format 'bestaudio' \
+            --output "${TMP_DIR}/raw/%(title)s" \
+            -- "$@"
 
-    for file in "${TMP_DIR}/raw/"*; do
-      ffmpeg \
-        -hide_banner \
-        -i "$file" \
-        -codec:a libmp3lame \
-        -qscale:a 2 \
-        -vn \
-        -map_metadata -1 \
-        "${TMP_DIR}/cooked/${file##*/}.mp3"
-      done
+        for file in "${TMP_DIR}/raw/"*; do
+            ffmpeg \
+                -hide_banner \
+                -i "$file" \
+                -codec:a libmp3lame \
+                -qscale:a 2 \
+                -vn \
+                -map_metadata -1 \
+                "${TMP_DIR}/cooked/${file##*/}.mp3"
+            done
 
   #       if command -v eyeD3 >/dev/null; then
   #               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
@@ -119,18 +120,18 @@ case "$1" in
 
   mkdir -p "${OUT_DIR}"
   for file in  "${TMP_DIR}"/cooked/* ; do
-    filenamebase=$(basename -- "$file")
-    extension="${filenamebase##*.}"
-    filename="${filenamebase%.*}"
-    #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+      filenamebase=$(basename -- "$file")
+      extension="${filenamebase##*.}"
+      filename="${filenamebase%.*}"
+      #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
 
-    if [ ! "${extension}" = "jpg" ]; then
-      mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-      mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
-      rm "${TMP_DIR}/cooked/${filename}.jpg"
-      mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
-    fi
+      if [ ! "${extension}" = "jpg" ]; then
+          mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+          mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
+          rm "${TMP_DIR}/cooked/${filename}.jpg"
+          mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
+      fi
   done
 
   cp -rf "${TMP_DIR}"/cooked/* "${OUT_DIR}"
@@ -139,7 +140,7 @@ case "$1" in
 
   ;;
 *)
-  printf "Unhandled URL type: $1"
+    printf "Unhandled URL type: $1"
 esac
 
 clear
