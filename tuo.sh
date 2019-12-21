@@ -78,8 +78,6 @@ case "$1" in
 *youtu*)
 
     printf "${YELLOW} Youtube-dl ${NC}"
-  sleep 20
-    printf "${YELLOW} Youtube-dl ${NC}"
     TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
     OUT_DIR="/storage/emulated/0/Music/musica-dl"
     CONFIG="${HOME}/.config/musica-dl"
