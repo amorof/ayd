@@ -40,7 +40,7 @@ pkg_install()
         done
 
         #show when its installed
-        echo -ne $BLUE "Installed -----> " $1 $NC " <--\n"
+        echo -ne $BLUE "Installed -----> " $1 $NC "\n"
     fi
 }
 
@@ -62,7 +62,7 @@ pip_install()
         done
 
         #show when its installed
-        echo -ne $BLUE "Upgraded  -----> " $1 $NC " <--\n"
+        echo -ne $BLUE "Upgraded  -----> " $1 $NC "\n"
 }
 
 termux-setup-storage &
@@ -82,3 +82,6 @@ fi
 mkdir -p $HOME/bin
 WD_AYD=$(find $HOME -type d -name ayd )
 ln -s $WD_AYD/tuo.sh $HOME/bin/termux-url-opener
+clear
+echo -ne $GREEN "Installed ayd ... type exit to close this. \n "
+exit 0

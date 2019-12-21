@@ -1,4 +1,4 @@
 #!/bin/bash
 
 echo $@
-sleep 20
+sleep 2
