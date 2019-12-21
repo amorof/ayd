@@ -125,6 +125,8 @@ case "$1" in
 
                 FFMPEG_PID=${FFMPEG_PID} $!
 
+                echo $FFMPEG_PID
+
             done
 
         done
