@@ -123,7 +123,7 @@ case "$1" in
                     -map_metadata -1 \
                     "${TMP_DIR}/cooked/${file##*/}.mp3" 1>/dev/null &
 
-                FFMPEG_PID=${FFMPEG_PID} $!
+                FFMPEG_PID=$! $FFMPEG_PID
 
                 echo $FFMPEG_PID
 
