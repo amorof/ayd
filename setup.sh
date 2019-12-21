@@ -53,16 +53,16 @@ pip_install()
         #See if the process it's running then do things
         while kill -0 "$INS_PID" >/dev/null 2>&1; do
           #play an animation while it's installing the program
-          echo -ne $GREEN "Installing (/)-> " $1 $NC "\r"
+          echo -ne $GREEN "Upgrading  (/)-> " $1 $NC "\r"
           sleep .3
-          echo -ne $GREEN "Installing (|)-> " $1 $NC "\r"
+          echo -ne $GREEN "Upgrading  (|)-> " $1 $NC "\r"
           sleep .3
-          echo -ne $GREEN "Installing (\)-> " $1 $NC "\r"
+          echo -ne $GREEN "Upgrading  (\)-> " $1 $NC "\r"
           sleep .3
         done
 
         #show when its installed
-        echo -ne $BLUE "Installed -----> " $1 $NC " <--\n"
+        echo -ne $BLUE "Upgraded  -----> " $1 $NC " <--\n"
 }
 
 termux-setup-storage &
