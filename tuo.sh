@@ -23,7 +23,7 @@ set -eu
 
 WD_AYD=$(find $HOME -type d -name ayd )
 echo $WD_AYD
-if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
+if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
 
   #Launch in background stdout and stderr don't show, then get the PID
   git -C $WD_AYD pull --force 1>/dev/null 2>/dev/null &
