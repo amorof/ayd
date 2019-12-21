@@ -22,7 +22,7 @@ NC='\033[0m'
 set -eu
 
 WD_AYD=$(find $HOME -type d -name ayd )
-
+echo $WD_AYD
 if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
 
   #Launch in background stdout and stderr don't show, then get the PID
