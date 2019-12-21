@@ -115,29 +115,15 @@ case "$1" in
   #       fi
 
   mkdir -p "${OUT_DIR}"
-  ls -la --color "${TMP_DIR}"/cooked/
-  sleep 2
   for file in  "${TMP_DIR}"/cooked/* ; do
-    printf "file->$file"
     filenamebase=$(basename -- "$file")
-    printf "filename->$filenamebase\n"
     filename="${filenamebase%.*}"
-    printf "$filename\n"\n
     mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-    printf "carpeta->${TMP_DIR}/cooked/${filename}\n"
     mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
   done
   clear
-  ls -la --color "${TMP_DIR}"/cooked/
-  sleep 10
 
   cp -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
-  cd "${TMP_DIR}/cooked"
-  for file in * ; do
-    printf "$file"
-    mkdir -p ${OUT_DIR}/${file%%.*}
-    cp ${file} ${OUT_DIR}/${file%%.*}/${file}
-  done
 
   rm -rf "${TMP_DIR}"
 
