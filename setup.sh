@@ -83,5 +83,5 @@ pip_install()
     WD_AYD=$(find $HOME -type d -name ayd )
     ln -s $WD_AYD/tuo.sh $HOME/bin/termux-url-opener
     clear
-    echo -ne $GREEN "Installed ayd ... type exit to close this. \n "
+    echo -ne $GREEN "Installed ayd ... type exit to close this. $NC\n "
     exit 0
