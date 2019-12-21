@@ -81,4 +81,4 @@ fi
 
 mkdir -p $HOME/bin
 WD_AYD=$(find $HOME -type d -name ayd )
-ln -s $HOME/bin/termux-url-opener $WD_AYD/tuo.sh
+ln -s $WD_AYD/tuo.sh $HOME/bin/termux-url-opener
