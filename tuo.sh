@@ -99,7 +99,7 @@ case "$1" in
     youtube-dl \
       --ignore-errors \
       --format 'bestaudio' \
-      --output "${TMP_DIR}/raw/%(title)s" \
+      --output "${TMP_DIR}/cooked/%(title)s" \
       -- "$@"
 
   # for file in "${TMP_DIR}/raw/"*; do
@@ -124,9 +124,9 @@ case "$1" in
     filename="${filenamebase%.*}"
     mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
-      echo preif-ext->$extension
+    printf "preif-ext->$extension"
     if [ ! ${extension} -eq "jpg"] ; then
-      echo ext->$extension
+      printf "post-ext->$extension"
       mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
       rm "${TMP_DIR}/cooked/${filename}.jpg"
       mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
