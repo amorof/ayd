@@ -99,7 +99,7 @@ case "$1" in
     youtube-dl \
       --ignore-errors \
       --format 'bestaudio' \
-      --output "${TMP_DIR}/cooked/%(title)s" \
+      --output "${TMP_DIR}/raw/%(title)s" \
       -- "$@"
 
     for file in "${TMP_DIR}/raw/"*; do
