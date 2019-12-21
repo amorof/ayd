@@ -103,6 +103,9 @@ case "$1" in
       -- "$@"
     ls "${TMP_DIR}/raw/"
     sleep 10
+    clear
+    ls "${TMP_DIR}/cooked/"
+    sleep 10
 
     for file in "${TMP_DIR}/raw/"*; do
       ffmpeg \
