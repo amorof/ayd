@@ -86,7 +86,7 @@ case "$1" in
         OUT_DIR="/storage/emulated/0/Music/ayd"
         CONFIG="${HOME}/.config/musica-dl"
 
-        mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked
+        mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked "${TMP_DIR}"/opt
 
         youtube-dl \
             --ignore-errors \
@@ -101,46 +101,60 @@ case "$1" in
             --ignore-errors \
             --format 'bestaudio' \
             --output "${TMP_DIR}/raw/%(title)s" \
-            -- "$@"
+            -- "$@" \
+            &
 
-        for file in "${TMP_DIR}/raw/"*; do
-            ffmpeg \
-                -hide_banner \
-                -i "$file" \
-                -codec:a libmp3lame \
-                -qscale:a 2 \
-                -vn \
-                -map_metadata -1 \
-                "${TMP_DIR}/cooked/${file##*/}.mp3"
+        YDL_PID=$!
+
+        FFMPEG_PID=""
+
+        while kill -0 "$YDL_PID" >/dev/null 2>&1; do
+
+            for file in "${TMP_DIR}/raw/"*; do
+
+                mv ${file} "${TMP_DIR}/opt/"
+
+                $( ffmpeg \
+                    -hide_banner \
+                    -i "${TMP_DIR}"/opt/$(basename -- "${file}") \
+                    -codec:a libmp3lame \
+                    -qscale:a 2 \
+                    -vn \
+                    -map_metadata -1 \
+                    "${TMP_DIR}/cooked/${file##*/}.mp3" 1>/dev/null && rm ${file} ) &
+
+                FFMPEG_PID=${FFMPEG_PID} $!
+
             done
 
-  #       if command -v eyeD3 >/dev/null; then
-  #               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
-  #       fi
+        done
 
-  mkdir -p "${OUT_DIR}"
-  for file in  "${TMP_DIR}"/cooked/* ; do
-      filenamebase=$(basename -- "$file")
-      extension="${filenamebase##*.}"
-      filename="${filenamebase%.*}"
-      #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+        wait $FFMPEG_PID
+        wait $YDL_PID
+
+        mkdir -p "${OUT_DIR}"
+        for file in  "${TMP_DIR}"/cooked/* ; do
+            filenamebase=$(basename -- "$file")
+            extension="${filenamebase##*.}"
+            filename="${filenamebase%.*}"
+            #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
 
-      if [ ! "${extension}" = "jpg" ]; then
-          mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-          mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
-          rm "${TMP_DIR}/cooked/${filename}.jpg"
-          mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
-      fi
-  done
+            if [ ! "${extension}" = "jpg" ]; then
+                mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+                mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
+                rm "${TMP_DIR}/cooked/${filename}.jpg"
+                mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
+            fi
+        done
 
-  cp -rf "${TMP_DIR}"/cooked/* "${OUT_DIR}"
+        cp -rf "${TMP_DIR}"/cooked/* "${OUT_DIR}"
 
-  rm -rf "${TMP_DIR}"
+        rm -rf "${TMP_DIR}"
 
-  ;;
-*)
-    printf "Unhandled URL type: $1"
+        ;;
+    *)
+        printf "Unhandled URL type: $1"
 esac
 
 clear
