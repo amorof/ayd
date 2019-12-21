@@ -48,5 +48,5 @@ if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
 
 fi
 clear
-echo -ne $BLUE "Done." $NC "\n"
+echo -e $BLUE "Done." $NC
 sleep 2
