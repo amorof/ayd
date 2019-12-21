@@ -9,11 +9,12 @@ NARGS=$#
 #echo -ne $BLUE "-> Updating Youtube-dl <-/r" $NC
 #DYT_PID=$!
 
-cd 
+cd
 ls
 echo $HOME
 
 WD_AYD=$(find $HOME -type d -name ayd )
+
 
 upd()
 {
@@ -21,7 +22,7 @@ upd()
         echo -e $GREEN "Update found !" $NC
         #wait $DYT_PID
         ls $WD_AYD/update.sh
-        exec $WD_AYD/update.sh $ARGS
+        #        exec $WD_AYD/update.sh $ARGS
         exit 1
     fi
     echo -e $YELLOW "Ayd it's up to date" $NC
