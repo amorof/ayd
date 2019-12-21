@@ -101,6 +101,8 @@ case "$1" in
       --format 'bestaudio' \
       --output "${TMP_DIR}/raw/%(title)s" \
       -- "$@"
+    ls "${TMP_DIR}/raw/"
+    sleep 10
 
     for file in "${TMP_DIR}/raw/"*; do
       ffmpeg \
