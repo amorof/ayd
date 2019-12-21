@@ -11,7 +11,7 @@ NARGS=$#
 
 cd 
 ls
-
+echo $HOME
 
 WD_AYD=$(find $HOME -type d -name ayd )
 
