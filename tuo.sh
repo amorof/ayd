@@ -74,5 +74,66 @@ pip_upg_if_need()
 
 pip_upg_if_need youtube-dl
 
-printf "$BLUE Done. $@ $NC"
+if [[ $1 =~ ^.*youtu.*$ ]]; then
+
+  printf "${YELLOW} Youtube-dl ${NC}"
+  TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
+  OUT_DIR="/storage/emulated/0/Music/musica-dl"
+  CONFIG="${HOME}/.config/musica-dl"
+
+  mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked
+
+  youtube-dl \
+    --ignore-errors \
+    --write-thumbnail \
+    --download-archive descargados-miniatura.txt \
+    --skip-download \
+    --output "${TMP_DIR}/cooked/%(title)s" \
+    -- "$@" \
+    1>/dev/null &
+
+
+  youtube-dl \
+    --ignore-errors \
+    --download-archive descargados.txt \
+    --format 'bestaudio' \
+    --output "${TMP_DIR}/raw/%(title)s" \
+    -- "$@"
+
+  for file in "${TMP_DIR}/raw/"*; do
+    ffmpeg \
+      -hide_banner \
+      -i "$file" \
+      -codec:a libmp3lame \
+      -qscale:a 2 \
+      -vn \
+      -map_metadata -1 \
+      "${TMP_DIR}/cooked/${file##*/}.mp3"
+    done
+
+#       if command -v eyeD3 >/dev/null; then
+#               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
+#       fi
+
+mkdir -p "${OUT_DIR}"
+cp -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
+cd "${TMP_DIR}/cooked"
+for file in * ; do
+  printf "$file"
+  mkdir -p ${OUT_DIR}/${file%%.*}
+  cp ${file} ${OUT_DIR}/${file%%.*}/${file}
+done
+
+rm -rf "${TMP_DIR}"
+
+sleep 20
+
+elif [[ $1 =~ ^.*nourlselected.*$ ]]; then
+  printf "ERROR1"
+else
+  printf "Unhandled URL type: $1"
+fi
+
+clear
+printf "$BLUE Done. $NC"
 sleep 2
