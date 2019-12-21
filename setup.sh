@@ -32,11 +32,11 @@ pkg_install()
         while kill -0 "$INS_PID" >/dev/null 2>&1; do
           #play an animation while it's installing the program
           echo -ne $GREEN "Installing (/)-> " $1 $NC "/r"
-          wait .3
+          sleep .3
           echo -ne $GREEN "Installing (|)-> " $1 $NC "/r"
-          wait .3
+          sleep .3
           echo -ne $GREEN "Installing (\)-> " $1 $NC "/r"
-          wait .3
+          sleep .3
         done
 
         #show when its installed
@@ -54,11 +54,11 @@ pip_install()
         while kill -0 "$INS_PID" >/dev/null 2>&1; do
           #play an animation while it's installing the program
           echo -ne $GREEN "Installing (/)-> " $1 $NC "/r"
-          wait .3
+          sleep .3
           echo -ne $GREEN "Installing (|)-> " $1 $NC "/r"
-          wait .3
+          sleep .3
           echo -ne $GREEN "Installing (\)-> " $1 $NC "/r"
-          wait .3
+          sleep .3
         done
 
         #show when its installed
