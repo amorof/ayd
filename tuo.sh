@@ -117,6 +117,8 @@ case "$1" in
   #       fi
 
   mkdir -p "${OUT_DIR}"
+  ls "${TMP_DIR}"/cooked/*
+  sleep 20
   cp -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
   cd "${TMP_DIR}/cooked"
   for file in * ; do
