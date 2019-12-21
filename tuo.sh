@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #shebang -> Use bash as shell interpreter.
 
 #Author: Francisco Amoros Cubells
@@ -30,11 +30,11 @@ if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
   #See if the process it's running then do things
   while kill -0 "$INS_PID" >/dev/null 2>&1; do
     #play an animation while it's upgrading the script
-    echo -ne $GREEN "Upgrading ayd (/)" $NC "\r"
+    printf "$GREEN Upgrading ayd (/) $NC \r"
     sleep .3
-    echo -ne $GREEN "Upgrading ayd (|)" $NC "\r"
+    printf "$GREEN Upgrading ayd (|) $NC \r"
     sleep .3
-    echo -ne $GREEN "Upgrading ayd (\)" $NC "\r"
+    printf "$GREEN Upgrading ayd (\) $NC \r"
     sleep .3
   done
 
@@ -48,5 +48,5 @@ if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
 
 fi
 clear
-echo -e "$BLUE Done. $NC"
+printf "$BLUE Done. $NC"
 sleep 2
