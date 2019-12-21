@@ -31,16 +31,16 @@ pkg_install()
         #See if the process it's running then do things
         while kill -0 "$INS_PID" >/dev/null 2>&1; do
           #play an animation while it's installing the program
-          echo -ne $GREEN "Installing (/)-> " $1 $NC "/r"
+          echo -ne $GREEN "Installing (/)-> " $1 $NC "\r"
           sleep .3
-          echo -ne $GREEN "Installing (|)-> " $1 $NC "/r"
+          echo -ne $GREEN "Installing (|)-> " $1 $NC "\r"
           sleep .3
-          echo -ne $GREEN "Installing (\)-> " $1 $NC "/r"
+          echo -ne $GREEN "Installing (\)-> " $1 $NC "\r"
           sleep .3
         done
 
         #show when its installed
-        echo -ne $BLUE "Installed -----> " $1 $NC " <--/n"
+        echo -ne $BLUE "Installed -----> " $1 $NC " <--\n"
     fi
 }
 
@@ -53,16 +53,16 @@ pip_install()
         #See if the process it's running then do things
         while kill -0 "$INS_PID" >/dev/null 2>&1; do
           #play an animation while it's installing the program
-          echo -ne $GREEN "Installing (/)-> " $1 $NC "/r"
+          echo -ne $GREEN "Installing (/)-> " $1 $NC "\r"
           sleep .3
-          echo -ne $GREEN "Installing (|)-> " $1 $NC "/r"
+          echo -ne $GREEN "Installing (|)-> " $1 $NC "\r"
           sleep .3
-          echo -ne $GREEN "Installing (\)-> " $1 $NC "/r"
+          echo -ne $GREEN "Installing (\)-> " $1 $NC "\r"
           sleep .3
         done
 
         #show when its installed
-        echo -ne $BLUE "Installed -----> " $1 $NC " <--/n"
+        echo -ne $BLUE "Installed -----> " $1 $NC " <--\n"
 }
 
 termux-setup-storage &
@@ -74,7 +74,11 @@ pkg_install python
 pip_install pip
 pip_install youtube-dl
 wait $TSS_PID
-rm -r $HOME/bin
+
+if [ -d "$HOME/bin" ]; then
+  rm -r $HOME/bin
+fi
+
 mkdir -p $HOME/bin
 WD_AYD=$(find $HOME -type d -name ayd )
 ln -s $HOME/bin/termux-url-opener $WD_AYD/tuo.sh
