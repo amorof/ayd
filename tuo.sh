@@ -122,10 +122,11 @@ case "$1" in
     filenamebase=$(basename -- "$file")
     extension="${filenamebase##*.}"
     filename="${filenamebase%.*}"
-    mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+    #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
     printf "preif-ext->$extension"
     if [ ! ${extension} -eq "jpg"] ; then
+      mkdir -p "${TMP_DIR}"/cooked/"${filename}"
       printf "post-ext->$extension"
       mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
       rm "${TMP_DIR}/cooked/${filename}.jpg"
