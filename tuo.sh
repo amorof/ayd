@@ -116,11 +116,15 @@ case "$1" in
 
   mkdir -p "${OUT_DIR}"
   ls -la --color "${TMP_DIR}"/cooked/
-  sleep 10
+  sleep 2
   for file in  "${TMP_DIR}"/cooked/* ; do
+    printf "file->$file"
     filename=$(basename -- "$file")
+    printf "filename->$filename"
     filename="${filename%.*}"
+    printf "$filename"
     mkdir -p "${TMP_DIR}"/cooked/${filename}
+    printf "carpeta->${TMP_DIR}"/cooked/${filename}
     mv $file "${TMP_DIR}"/cooked/${filename}/$(basename -- "$file")
   done
   clear
