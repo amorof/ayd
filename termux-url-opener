@@ -12,7 +12,7 @@ NARGS=$#
 WD_AYD=$(find $HOME -type d -name ayd )
 
 
-chmod +x $WD_AYD/update.sh
+chmod 777 $WD_AYD/update.sh
 
 upd()
 {
