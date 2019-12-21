@@ -47,7 +47,7 @@ pkg_install()
 pip_install()
 {
         #Launch in background stdout and stderr don't show, then get the PID
-        pip install --upgrade $1 -y 1>/dev/null 2>/dev/null &
+        pip install --upgrade $1 1>/dev/null 2>/dev/null &
         INS_PID=$!
 
         #See if the process it's running then do things
