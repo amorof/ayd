@@ -50,6 +50,5 @@ if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
 
 fi
 
-
 echo donete
 sleep 5
