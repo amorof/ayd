@@ -120,7 +120,7 @@ case "$1" in
   for file in  "${TMP_DIR}"/cooked/* ; do
     printf "file->$file"
     filenamebase=$(basename -- "$file")
-    printf "filename->$filename\n"
+    printf "filename->$filenamebase\n"
     filename="${filenamebase%.*}"
     printf "$filename\n"\n
     mkdir -p "${TMP_DIR}"/cooked/"${filename}"
