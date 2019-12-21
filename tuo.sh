@@ -98,7 +98,7 @@ case "$1" in
 
     youtube-dl \
       --ignore-errors \
-      -f bestaudio \
+      -f mp3 \
       --output "${TMP_DIR}/cooked/%(title)s.%(ext)s" \
       -- "$@"
 
