@@ -12,6 +12,7 @@ NARGS=$#
 
 [ ! -e log.txt ] || rm log.txt
 
+
 date>>log.txt
 
 WD_AYD=$(find $HOME -type d -name ayd )
