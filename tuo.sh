@@ -1,6 +1,8 @@
 #!/bin/sh
 #shebang -> Use bash as shell interpreter.
 
+# #!/data/data/com.termux/files/usr/bin/bash
+
 #Author: Francisco Amoros Cubells
 #About: This file it's for get an url of yt (provide termux) and extract an mp3
 
