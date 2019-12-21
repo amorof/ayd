@@ -125,7 +125,8 @@ case "$1" in
     #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
     printf "preif-ext->$extension"
-    if [ ! ${extension} -eq "jpg"] ; then
+
+    if [ ! ${extension} = "jpg" ]; then
       mkdir -p "${TMP_DIR}"/cooked/"${filename}"
       printf "post-ext->$extension"
       mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
