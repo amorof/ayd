@@ -75,7 +75,7 @@ pip_upg_if_need()
 pip_upg_if_need youtube-dl
 
 case "$1" in
-^.*youtu.*$)
+*youtu*)
 
     printf "${YELLOW} Youtube-dl ${NC}"
   sleep 20
@@ -130,7 +130,7 @@ case "$1" in
   rm -rf "${TMP_DIR}"
 
   ;;
-^.*nourlselected.*$ )
+^$ )
   printf "ERROR1"
   ;;
 *)
