@@ -115,12 +115,17 @@ case "$1" in
   #       fi
 
   mkdir -p "${OUT_DIR}"
+  ls -la --colour "${TMP_DIR}"/cooked/
+  sleep 10
   for file in  "${TMP_DIR}"/cooked/* ; do
     filename=$(basename -- "$file")
     filename="${filename%.*}"
     mkdir -p "${TMP_DIR}"/cooked/${filename}
     mv $file "${TMP_DIR}"/cooked/${filename}/$(basename -- "$file")
   done
+  clear
+  ls -la --colour "${TMP_DIR}"/cooked/
+  sleep 10
 
   cp -f "${TMP_DIR}"/cooked/* "${OUT_DIR}"
   cd "${TMP_DIR}/cooked"
