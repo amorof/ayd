@@ -11,6 +11,8 @@ NARGS=$#
 
 WD_AYD=$(find $HOME -type d -name ayd )
 
+chmod +x $WD_AYD/update.sh
+
 upd()
 {
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
@@ -18,7 +20,7 @@ upd()
         #wait $DYT_PID
         ls -l $WD_AYD/update.sh
         echo -e $BLUE $WD_AYD/update.sh $NC
-        #        exec $WD_AYD/update.sh $ARGS
+        exec $WD_AYD/update.sh $ARGS
         exit 1
     fi
     echo -e $YELLOW "Ayd it's up to date" $NC
