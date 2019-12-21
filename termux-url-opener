@@ -9,10 +9,11 @@ NARGS=$#
 #DYT_PID=$!
 
 ## #!/bin/bash
+set -x
+set -v
 WD_AYD=$(find $HOME -type d -name ayd )
 
 chmod 777 $WD_AYD/update.sh
-
 
 upd()
 {
