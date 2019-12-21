@@ -73,6 +73,7 @@ pip_install()
     pkg_install python
     pip_install pip
     pip_install youtube-dl
+    pip_install mutagen
     wait $TSS_PID
 
     if [ -d "$HOME/bin" ]; then

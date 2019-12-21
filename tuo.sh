@@ -75,6 +75,7 @@ pip_upg_if_need()
 }
 
 pip_upg_if_need youtube-dl
+pip_upg_if_need mutagen
 
 case "$1" in
 *youtu*)
@@ -101,16 +102,16 @@ case "$1" in
       --output "${TMP_DIR}/raw/%(title)s" \
       -- "$@"
 
-    for file in "${TMP_DIR}/raw/"*; do
-      ffmpeg \
-        -hide_banner \
-        -i "$file" \
-        -codec:a libmp3lame \
-        -qscale:a 2 \
-        -vn \
-        -map_metadata -1 \
-        "${TMP_DIR}/cooked/${file##*/}.mp3"
-      done
+  # for file in "${TMP_DIR}/raw/"*; do
+  #   ffmpeg \
+  #     -hide_banner \
+  #     -i "$file" \
+  #     -codec:a libmp3lame \
+  #     -qscale:a 2 \
+  #     -vn \
+  #     -map_metadata -1 \
+  #     "${TMP_DIR}/cooked/${file##*/}.mp3"
+  #   done
 
   #       if command -v eyeD3 >/dev/null; then
   #               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
@@ -119,9 +120,16 @@ case "$1" in
   mkdir -p "${OUT_DIR}"
   for file in  "${TMP_DIR}"/cooked/* ; do
     filenamebase=$(basename -- "$file")
+    extension="${filenamebase##*.}"
     filename="${filenamebase%.*}"
     mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-    mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
+
+    if [ ! extension -eq "jpg"] ; then
+
+      mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
+      rm "${TMP_DIR}/cooked/${filename}.jpg"
+      mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
+    fi
   done
   clear
 
