@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/bash
 #shebang -> Use bash as shell interpreter.
 
-# #!/data/data/com.termux/files/usr/bin/bash
+# #!/bin/sh
 
 #Author: Francisco Amoros Cubells
 #About: This file it's for get an url of yt (provide termux) and extract an mp3
@@ -126,7 +126,7 @@ case "$1" in
 
     printf "preif-ext->$extension"
 
-    if [ ! ${extension} = "jpg" ]; then
+    if [ ! "${extension}" = "jpg" ]; then
       mkdir -p "${TMP_DIR}"/cooked/"${filename}"
       printf "post-ext->$extension"
       mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
