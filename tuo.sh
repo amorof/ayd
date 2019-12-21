@@ -110,9 +110,10 @@ case "$1" in
 
         while kill -0 "$YDL_PID" >/dev/null 2>&1; do
 
-            for file in "${TMP_DIR}/raw/*" ; do
+            ls -la "${TMP_DIR}"/raw/*
+            #for file in "${TMP_DIR}"/raw/* ; do
 
-                echo $file
+                #echo $file
 
                 #mv ${file} "${TMP_DIR}/opt/"
 
@@ -127,9 +128,9 @@ case "$1" in
 
               # FFMPEG_PID="$! $FFMPEG_PID"
               # echo $FFMPEG_PID
-          done
+              #done
 
-      done
+          done
 
 #     wait $FFMPEG_PID
 #     wait $YDL_PID
