@@ -4,6 +4,7 @@
 #Author: Francisco Amoros Cubells
 #About: This file it's for get an url of yt (provide termux) and extract an mp3
 echo $0 " <-> " $@
+sleep 3
 
 # Create variables for colors in the shell
 RED='\033[0;31m'
@@ -50,3 +51,5 @@ if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
 fi
 
 
+echo donete
+sleep 5
