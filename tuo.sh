@@ -75,8 +75,10 @@ pip_upg_if_need()
 pip_upg_if_need youtube-dl
 
 case "$1" in
-  ^.*youtu.*$)
+^.*youtu.*$)
 
+    printf "${YELLOW} Youtube-dl ${NC}"
+  sleep 20
     printf "${YELLOW} Youtube-dl ${NC}"
     TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
     OUT_DIR="/storage/emulated/0/Music/musica-dl"
@@ -127,7 +129,6 @@ case "$1" in
 
   rm -rf "${TMP_DIR}"
 
-  sleep 20
   ;;
 ^.*nourlselected.*$ )
   printf "ERROR1"
@@ -136,6 +137,5 @@ case "$1" in
   printf "Unhandled URL type: $1"
 esac
 
-clear
 printf "$BLUE Done. $NC"
 sleep 2
