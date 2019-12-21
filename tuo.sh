@@ -110,11 +110,11 @@ case "$1" in
 
         while kill -0 "$YDL_PID" >/dev/null 2>&1; do
 
-            for file in "ls ${TMP_DIR}/raw/" ; do
+            for file in "${TMP_DIR}/raw/" ; do
 
                 echo $file
 
-                mv ${file} "${TMP_DIR}/opt/"
+                #mv ${file} "${TMP_DIR}/opt/"
 
               # ffmpeg \
               #     -hide_banner \
