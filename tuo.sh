@@ -47,5 +47,32 @@ if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
   exit 1
 fi
 
+pip_upg_if_need()
+{
+  #If it isn't updated then update
+  if [ $(pip list --outdated 2>&1 | grep $1 | wc -l) -gt 0 ] ; then
+
+    #Launch in background stdout and stderr don't show, then get the PID
+    pip install --upgrade $1 1>/dev/null 2>/dev/null &
+    INS_PID=$!
+
+    #See if the process it's running then do things
+    while kill -0 "$INS_PID" >/dev/null 2>&1; do
+      #play an animation while it's installing the program
+      printf "$GREEN Upgrading $1 (/) $NC \r"
+      sleep .3
+      printf "$GREEN Upgrading $1 (|) $NC \r"
+      sleep .3
+      printf "$GREEN Upgrading $1 (\) $NC \r"
+      sleep .3
+    done
+
+    #show when its installed
+    printf "$BLUE Upgraded  $1        $NC \n"
+  fi
+}
+
+pip_upg_if_need youtube-dl
+
 printf "$BLUE Done. $@ $NC"
 sleep 2
