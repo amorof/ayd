@@ -25,7 +25,7 @@ WD_AYD=$(find $HOME -type d -name ayd )
 if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
 
   #Launch in background stdout and stderr don't show, then get the PID
-  git -C $WD_AYD pull --force 2>/dev/null &
+  git -C $WD_AYD pull --force 1>/dev/null 2>/dev/null &
   INS_PID=$!
 
   #See if the process it's running then do things
@@ -40,7 +40,7 @@ if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
   done
 
   #show when its installed
-  echo -ne $BLUE "Upgraded  ayd" $NC "\n"
+  echo -ne $BLUE "Upgraded  ayd     " $NC "\n"
 
   #execute the command with the new updated script
   exec $0 $@
