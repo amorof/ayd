@@ -40,9 +40,14 @@ upd()
         add_log $GREEN "--> git pull <--"
         git -C $WD_AYD pull --force 2>>log.txt| tail -n1
         mkdir -p $HOME/bin
+        sleep 5
         cp $WD_AYD/termux-url-opener $HOME/bin/termux-url-opener
+
+        sleep 5
         chmod +x $HOME/bin/termux-url-opener
+        sleep 5
         chmod +x $WD_AYD/update.sh
+        sleep 5
         exec $HOME/bin/termux-url-opener $ARGS
         exit 1
     fi
@@ -50,6 +55,7 @@ upd()
     cp $WD_AYD/termux-url-opener $HOME/bin/termux-url-opener
     echo -e $YELLOW " Script up-to-date " $NC
 }
+
 
 termux-setup-storage &
 TSS_PID=$!
