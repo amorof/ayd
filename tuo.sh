@@ -77,9 +77,9 @@ pip_upg_if_need youtube-dl
 case "$1" in
 *youtu*)
 
-    printf "${YELLOW} Youtube-dl ${NC}"
+    printf "${YELLOW} Youtube-dl ${NC}\n"
     TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
-    OUT_DIR="/storage/emulated/0/Music/musica-dl"
+    OUT_DIR="/storage/emulated/0/Music/ayd"
     CONFIG="${HOME}/.config/musica-dl"
 
     mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked
