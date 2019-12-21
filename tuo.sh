@@ -99,24 +99,22 @@ case "$1" in
     youtube-dl \
       --ignore-errors \
       --format 'bestaudio' \
-      --output "${TMP_DIR}/raw/%(title)s.%(ext)s" \
+      --output "${TMP_DIR}/cooked/%(title)s.%(ext)s" \
       -- "$@"
-    ls "${TMP_DIR}/raw/"
-    sleep 10
-    clear
+
     ls "${TMP_DIR}/cooked/"
     sleep 10
 
-    for file in "${TMP_DIR}/raw/"*; do
-      ffmpeg \
-        -hide_banner \
-        -i "$file" \
-        -codec:a libmp3lame \
-        -qscale:a 2 \
-        -vn \
-        -map_metadata -1 \
-        "${TMP_DIR}/cooked/${file##*/}.mp3"
-      done
+   #for file in "${TMP_DIR}/raw/"*; do
+   #  ffmpeg \
+   #    -hide_banner \
+   #    -i "$file" \
+   #    -codec:a libmp3lame \
+   #    -qscale:a 2 \
+   #    -vn \
+   #    -map_metadata -1 \
+   #    "${TMP_DIR}/cooked/${file##*/}.mp3"
+   #  done
 
   #       if command -v eyeD3 >/dev/null; then
   #               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
