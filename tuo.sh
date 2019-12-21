@@ -98,23 +98,20 @@ case "$1" in
 
     youtube-dl \
       --ignore-errors \
-      -f mp3 \
-      --output "${TMP_DIR}/cooked/%(title)s.%(ext)s" \
+      --format 'bestaudio' \
+      --output "${TMP_DIR}/raw/%(title)s" \
       -- "$@"
 
-    ls "${TMP_DIR}/cooked/"
-    sleep 10
-
-   #for file in "${TMP_DIR}/raw/"*; do
-   #  ffmpeg \
-   #    -hide_banner \
-   #    -i "$file" \
-   #    -codec:a libmp3lame \
-   #    -qscale:a 2 \
-   #    -vn \
-   #    -map_metadata -1 \
-   #    "${TMP_DIR}/cooked/${file##*/}.mp3"
-   #  done
+    for file in "${TMP_DIR}/raw/"*; do
+      ffmpeg \
+        -hide_banner \
+        -i "$file" \
+        -codec:a libmp3lame \
+        -qscale:a 2 \
+        -vn \
+        -map_metadata -1 \
+        "${TMP_DIR}/cooked/${file##*/}.mp3"
+      done
 
   #       if command -v eyeD3 >/dev/null; then
   #               eyeD3 --remove-all "${TMP_DIR}"/cooked/*.mp3
@@ -127,11 +124,9 @@ case "$1" in
     filename="${filenamebase%.*}"
     #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
-    printf "preif-ext->${extension} \n"
 
     if [ ! "${extension}" = "jpg" ]; then
       mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-      printf "post-ext->${extension} \n"
       mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
       rm "${TMP_DIR}/cooked/${filename}.jpg"
       mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
@@ -147,6 +142,6 @@ case "$1" in
   printf "Unhandled URL type: $1"
 esac
 
-#clear
+clear
 printf "$BLUE Done. $NC"
-sleep 22
+sleep 1
