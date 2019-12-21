@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # si el fichero no existe sale, y si existe se borra,
 # dejando en los dos casos un exit 0
@@ -9,6 +8,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 ARGS=$@
 NARGS=$#
+# ##!/bin/bash
 
 [ ! -e log.txt ] || rm log.txt
 
