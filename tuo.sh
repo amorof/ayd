@@ -1,9 +1,9 @@
-#!/bin/bash
-#!/bin/bash
+#!/bin/sh
 #shebang -> Use bash as shell interpreter.
 
 #Author: Francisco Amoros Cubells
 #About: This file it's for get an url of yt (provide termux) and extract an mp3
+echo $0 " <-> " $@
 
 # Create variables for colors in the shell
 RED='\033[0;31m'
