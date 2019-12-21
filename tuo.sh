@@ -99,7 +99,7 @@ case "$1" in
     youtube-dl \
       --ignore-errors \
       --format 'bestaudio' \
-      --output "${TMP_DIR}/raw/%(title)s" \
+      --output "${TMP_DIR}/raw/%(title)s.%(ext)s" \
       -- "$@"
     ls "${TMP_DIR}/raw/"
     sleep 10
