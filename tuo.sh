@@ -110,7 +110,7 @@ case "$1" in
 
         while kill -0 "$YDL_PID" >/dev/null 2>&1; do
 
-            for file in "${TMP_DIR}/raw/" ; do
+            for file in "${TMP_DIR}/raw/*" ; do
 
                 echo $file
 
