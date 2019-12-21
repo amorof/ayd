@@ -128,9 +128,6 @@ case "$1" in
   rm -rf "${TMP_DIR}"
 
   ;;
-^$ )
-  printf "ERROR1"
-  ;;
 *)
   printf "Unhandled URL type: $1"
 esac
