@@ -74,7 +74,7 @@ pip_upg_if_need()
 
 pip_upg_if_need youtube-dl
 
-if [[ $1 =~ ^.*youtu.*$ ]]; then
+if [ $1 =~ ^.*youtu.*$ ]; then
 
   printf "${YELLOW} Youtube-dl ${NC}"
   TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
