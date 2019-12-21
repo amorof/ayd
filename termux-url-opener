@@ -1,3 +1,4 @@
+#!/bin/bash
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -8,7 +9,6 @@ NARGS=$#
 #echo -ne $BLUE "-> Updating Youtube-dl <-/r" $NC
 #DYT_PID=$!
 
-## #!/bin/bash
 set -x
 set -v
 WD_AYD=$(find $HOME -type d -name ayd )
