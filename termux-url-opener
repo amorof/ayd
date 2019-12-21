@@ -7,8 +7,9 @@ NC='\033[0m'
 ARGS=$@
 NARGS=$#
 #echo -ne $BLUE "-> Updating Youtube-dl <-/r" $NC
-pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt
 #DYT_PID=$!
+
+cd $HOME
 
 WD_AYD=$(find $HOME -type d -name ayd )
 upd()
@@ -28,6 +29,8 @@ upd()
 }
 
 upd
+
+pip install --upgrade youtube-dl 1>/dev/null 2>>log.txt
 
 #pip install --upgrade beets
 #set -eu
