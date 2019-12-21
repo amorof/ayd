@@ -18,7 +18,7 @@ upd()
     if [[ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ]]; then
         echo -e $GREEN "Update found !" $NC
         #wait $DYT_PID
-        exec $WD_AYD/update.sh $ARGS
+        sh -c $WD_AYD/update.sh $ARGS
         exit 1
     fi
     echo -e $YELLOW "Ayd it's up to date" $NC
