@@ -4,7 +4,7 @@ Android-Music-Download
 - in termux:
 - $ pkg install git
 - $ git clone https://github.com/Bepitic/ayd.git
-- $ ./ayd/update.sh
+- $ ./ayd/setup.sh
 
 - In one command :
-- $ pkg install git -y; git clone https://github.com/Bepitic/ayd.git;./ayd/update.sh
+- $ pkg install git -y; git clone git://github.com/Bepitic/ayd.git;./ayd/setup.sh
