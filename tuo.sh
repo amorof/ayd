@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #shebang -> Use bash as shell interpreter.
 
 #Author: Francisco Amoros Cubells
