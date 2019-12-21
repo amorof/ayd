@@ -102,7 +102,7 @@ case "$1" in
             --format 'bestaudio' \
             --output "${TMP_DIR}/raw/%(title)s" \
             -- "$@" \
-            &
+            1>/dev/null &
 
         YDL_PID=$!
 
@@ -110,7 +110,13 @@ case "$1" in
 
         while kill -0 "$YDL_PID" >/dev/null 2>&1; do
 
-            ls -la "${TMP_DIR}"/raw/*
+            if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
+
+                clear
+                ls -la "${TMP_DIR}"/raw/*
+                sleep 1
+
+            fi
             #for file in "${TMP_DIR}"/raw/* ; do
 
                 #echo $file
