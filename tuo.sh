@@ -39,7 +39,7 @@ if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
   done
 
   #show when its installed
-  echo -ne $BLUE "Upgraded  ayd     " $NC "\n"
+  printf "$BLUE Upgraded  ayd      $NC \n"
 
   #
   #execute the command with the new updated script
