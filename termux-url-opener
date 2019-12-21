@@ -12,6 +12,7 @@ NARGS=$#
 cd 
 ls
 
+
 WD_AYD=$(find $HOME -type d -name ayd )
 
 upd()
