@@ -125,7 +125,7 @@ case "$1" in
     printf "$filename\n"\n
     mkdir -p "${TMP_DIR}"/cooked/"${filename}"
     printf "carpeta->${TMP_DIR}/cooked/${filename}\n"
-    mv $file "${TMP_DIR}"/cooked/"${filename}"/"${filenamebase}"
+    mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
   done
   clear
   ls -la --color "${TMP_DIR}"/cooked/
