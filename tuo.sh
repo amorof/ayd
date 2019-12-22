@@ -141,6 +141,7 @@ case "$1" in
             fi
             clear
             printf "$BLUE $YDL_PID $NC \n"
+            printf "$BLUE $(ls "${TMP_DIR}/opt/") $NC \n"
             NDL=$( wc -w <<< "$YDL_PID" )
             #play an animation while it's upgrading the script
             printf "$GREEN Encoding to mp3 $NDL (/) $NC \r"
