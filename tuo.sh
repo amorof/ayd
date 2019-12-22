@@ -209,6 +209,7 @@ case "$1" in
     printf "Unhandled URL type: $1"
 esac
 
+sleep 30
 clear
 printf "$BLUE Done. $NC"
 sleep 10
