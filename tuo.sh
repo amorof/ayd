@@ -33,13 +33,13 @@ if [ $(git -C $WD_AYD fetch --dry-run 2>&1 | wc -l) -gt 0 ] ; then
 
   #See if the process it's running then do things
   while kill -0 "$INS_PID" >/dev/null 2>&1; do
-      #play an animation while it's upgrading the script
-      printf "$GREEN Upgrading ayd (/) $NC \r"
-      sleep .3
-      printf "$GREEN Upgrading ayd (|) $NC \r"
-      sleep .3
-      printf "$GREEN Upgrading ayd (\) $NC \r"
-      sleep .3
+    #play an animation while it's upgrading the script
+    printf "$GREEN Upgrading ayd (/) $NC \r"
+    sleep .3
+    printf "$GREEN Upgrading ayd (|) $NC \r"
+    sleep .3
+    printf "$GREEN Upgrading ayd (\) $NC \r"
+    sleep .3
   done
 
   #show when its installed
@@ -52,8 +52,8 @@ fi
 
 pip_upg_if_need()
 {
-    #If it isn't updated then update
-    if [ $(pip list --outdated 2>&1 | grep $1 | wc -l) -gt 0 ] ; then
+  #If it isn't updated then update
+  if [ $(pip list --outdated 2>&1 | grep $1 | wc -l) -gt 0 ] ; then
 
     #Launch in background stdout and stderr don't show, then get the PID
     pip install --upgrade $1 1>/dev/null 2>/dev/null &
@@ -61,123 +61,137 @@ pip_upg_if_need()
 
     #See if the process it's running then do things
     while kill -0 "$INS_PID" >/dev/null 2>&1; do
-        #play an animation while it's installing the program
-        printf "$GREEN Upgrading $1 (/) $NC \r"
-        sleep .3
-        printf "$GREEN Upgrading $1 (|) $NC \r"
-        sleep .3
-        printf "$GREEN Upgrading $1 (\) $NC \r"
-        sleep .3
+      #play an animation while it's installing the program
+      printf "$GREEN Upgrading $1 (/) $NC \r"
+      sleep .3
+      printf "$GREEN Upgrading $1 (|) $NC \r"
+      sleep .3
+      printf "$GREEN Upgrading $1 (\) $NC \r"
+      sleep .3
     done
 
     #show when its installed
     printf "$BLUE Upgraded  $1        $NC \n"
-    fi
+  fi
 }
 
 pip_upg_if_need youtube-dl
 pip_upg_if_need mutagen
 
 case "$1" in
-    *youtu*)
+  *youtu*)
 
-        printf "${YELLOW} Youtube-dl ${NC}\n"
-        TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
-        OUT_DIR="/storage/emulated/0/Music/ayd"
-        CONFIG="${HOME}/.config/musica-dl"
+    printf "${YELLOW} Youtube-dl ${NC}\n"
+    TMP_DIR="$(mktemp -dt musica-dl.XXXXXX)"
+    OUT_DIR="/storage/emulated/0/Music/ayd"
+    CONFIG="${HOME}/.config/musica-dl"
 
-        mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked "${TMP_DIR}"/opt
+    mkdir "${TMP_DIR}"/raw "${TMP_DIR}"/cooked "${TMP_DIR}"/opt
 
-        youtube-dl \
-            --ignore-errors \
-            --write-thumbnail \
-            --skip-download \
-            --output "${TMP_DIR}/cooked/%(title)s" \
-            -- "$@" \
-            1>/dev/null &
+    youtube-dl \
+      --ignore-errors \
+      --write-thumbnail \
+      --skip-download \
+      --output "${TMP_DIR}/cooked/%(title)s" \
+      -- "$@" \
+      1>/dev/null &
 
 
-        youtube-dl \
-            --ignore-errors \
-            --format 'bestaudio' \
-            --output "${TMP_DIR}/raw/%(title)s" \
-            -- "$@" \
-            1>/dev/null &
+    youtube-dl \
+      --ignore-errors \
+      --format 'bestaudio' \
+      --output "${TMP_DIR}/raw/%(title)s" \
+      -- "$@" \
+      1>/dev/null &
 
-        YDL_PID=$!
+    YDL_PID=$!
 
-        FFMPEG_PID=""
+    FFMPEG_PID=""
 
-        while kill -0 "$YDL_PID" >/dev/null 2>&1; do
+    while kill -0 "$YDL_PID" >/dev/null 2>&1; do
 
-            if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
+      if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
 
-                for file in "${TMP_DIR}"/raw/* ; do
+        for file in "${TMP_DIR}"/raw/* ; do
 
-                    filenamebase=$(basename -- "$file")
-                    extension="${filenamebase##*.}"
+          filenamebase=$(basename -- "$file")
+          extension="${filenamebase##*.}"
 
-                    if [ -z "${extension}" ]; then
+          if [ -z "${extension}" ]; then
 
-                        mv "${file}" "${TMP_DIR}/opt/"
+            mv "${file}" "${TMP_DIR}/opt/"
 
-                        BN=$(basename -- "${file}")
+            BN=$(basename -- "${file}")
 
-                        printf "$BLUE Encoding to mp3 $BN  $NC \n"
-                        printf "$BLUE "${TMP_DIR}"/opt/"${BN}"  $NC \n"
-                        ffmpeg \
-                            -hide_banner \
-                            -i "${TMP_DIR}"/opt/"${BN}" \
-                            -codec:a libmp3lame \
-                            -qscale:a 2 \
-                            -vn \
-                            -map_metadata -1 \
-                            "${TMP_DIR}/cooked/${file##*/}.mp3" \
-                            1>>log.txt 2>>log.txt &
+            printf "$BLUE Encoding to mp3 $BN  $NC \n"
+            printf "$BLUE "${TMP_DIR}"/opt/"${BN}"  $NC \n"
+            ffmpeg \
+              -hide_banner \
+              -i "${TMP_DIR}"/opt/"${BN}" \
+              -codec:a libmp3lame \
+              -qscale:a 2 \
+              -vn \
+              -map_metadata -1 \
+              "${TMP_DIR}/cooked/${file##*/}.mp3" \
+              1>>log.txt 2>>log.txt &
 
-                        YDL_PID="$! $YDL_PID"
-                    fi
-                done
-            fi
-            clear
-            printf "$BLUE $YDL_PID $NC \n"
-            printf "$BLUE $(ls "${TMP_DIR}/opt/") $NC \n"
-            NDL=$( wc -w <<< "$YDL_PID" )
-            #play an animation while it's upgrading the script
-            printf "$GREEN Encoding to mp3 $NDL (/) $NC \r"
-            sleep .3
-            printf "$GREEN Encoding to mp3 $NDL (|) $NC \r"
-            sleep .3
-            printf "$GREEN Encoding to mp3 $NDL (\) $NC \r"
-            sleep .3
+            YDL_PID="$! $YDL_PID"
+          fi
         done
+      fi
 
-        mkdir -p "${OUT_DIR}"
+      clear
+      printf "$BLUE $YDL_PID $NC \n"
+      printf "$BLUE $(ls "${TMP_DIR}/opt/") $NC \n"
 
-        for file in  "${TMP_DIR}"/cooked/* ; do
-            filenamebase=$(basename -- "$file")
-            extension="${filenamebase##*.}"
-            filename="${filenamebase%.*}"
-            #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+      NDL=($YDL_PID)
+
+      #Count the process finished
+      count=0
+      for i in "${NDL[@]}"; do
+
+        if ! ps -p "$i" > /dev/null
+        then
+          ((count=count + 1))
+        fi
+      done
+
+      #play an animation while it's encoding to mp3
+      printf "$GREEN Encoding to mp3 (/)-($count/${#NDL[@]}) $NC \r"
+      sleep .3
+      printf "$GREEN Encoding to mp3 (|)-($count/${#NDL[@]}) $NC \r"
+      sleep .3
+      printf "$GREEN Encoding to mp3 (\)-($count/${#NDL[@]}) $NC \r"
+      sleep .3
+
+    done
+
+    mkdir -p "${OUT_DIR}"
+
+    for file in  "${TMP_DIR}"/cooked/* ; do
+      filenamebase=$(basename -- "$file")
+      extension="${filenamebase##*.}"
+      filename="${filenamebase%.*}"
+      #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
 
-            if [ ! "${extension}" = "jpg" ]; then
-                mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-                mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" \
-                    "${TMP_DIR}/cooked/${filename}.${extension}"
+      if [ ! "${extension}" = "jpg" ]; then
+        mkdir -p "${TMP_DIR}"/cooked/"${filename}"
+        mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" \
+          "${TMP_DIR}/cooked/${filename}.${extension}"
 
-                rm "${TMP_DIR}/cooked/${filename}.jpg"
-                mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
-            fi
-        done
+        rm "${TMP_DIR}/cooked/${filename}.jpg"
+        mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
+      fi
+    done
 
-        cp -rf "${TMP_DIR}"/cooked/* "${OUT_DIR}"
+    cp -rf "${TMP_DIR}"/cooked/* "${OUT_DIR}"
 
-        rm -rf "${TMP_DIR}"
+    rm -rf "${TMP_DIR}"
 
-        ;;
-    *)
-        printf "Unhandled URL type: $1"
+    ;;
+  *)
+    printf "Unhandled URL type: $1"
 esac
 
 clear
