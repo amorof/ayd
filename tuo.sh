@@ -177,4 +177,4 @@ esac
 
 clear
 printf "$BLUE Done. $NC"
-sleep 1
+sleep 10
