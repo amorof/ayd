@@ -180,7 +180,7 @@ case "$1" in
 
       if [ ! "${extension}" = "jpg" ]; then
 
-        filewiked=$(cut -d "." -f1 "$filename")
+        filewiked=$(cut -d "." -f1 "$filename".mp3)
         mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
         if [ -f "${TMP_DIR}/cooked/${filename}.jpg" ]; then
