@@ -120,8 +120,8 @@ case "$1" in
 
                     if [ ! "${extension}" = "part" ]; then
 
-                        echo "${file}"
-                        echo "${TMP_DIR}/opt/"
+                        echo "file->" "${file}"
+                        ls "${TMP_DIR}/opt/"*
                         mv "${file}" "${TMP_DIR}/opt/"
 
                       # ffmpeg \
