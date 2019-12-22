@@ -132,7 +132,8 @@ case "$1" in
                             -qscale:a 2 \
                             -vn \
                             -map_metadata -1 \
-                            "${TMP_DIR}/cooked/${file##*/}.mp3" 1>/dev/null &
+                            "${TMP_DIR}/cooked/${file##*/}.mp3" \
+                            1>/dev/null 2>/dev/null &
 
                         FFMPEG_PID="$! $FFMPEG_PID"
 
@@ -145,7 +146,6 @@ case "$1" in
         done
 
         wait $FFMPEG_PID
-        wait $YDL_PID
 
         mkdir -p "${OUT_DIR}"
 
@@ -158,7 +158,9 @@ case "$1" in
 
             if [ ! "${extension}" = "jpg" ]; then
                 mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-                mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" "${TMP_DIR}/cooked/${filename}.${extension}"
+                mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" \
+                    "${TMP_DIR}/cooked/${filename}.${extension}"
+
                 rm "${TMP_DIR}/cooked/${filename}.jpg"
                 mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
             fi
