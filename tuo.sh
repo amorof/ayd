@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
-#shebang -> Use bash as shell interpreter.
+# shebang -> Use bash as shell interpreter.
 
 # #!/bin/sh
 
@@ -75,9 +75,11 @@ pip_upg_if_need()
   fi
 }
 
+echo yt
 pip_upg_if_need youtube-dl
+echo mutagen
 pip_upg_if_need mutagen
-
+echo done
 case "$1" in
   *youtu*)
 
@@ -121,8 +123,6 @@ case "$1" in
 
             BN=$(basename -- "${file}")
 
-            printf "$BLUE Encoding to mp3 $BN  $NC \n"
-            printf "$BLUE "${TMP_DIR}"/opt/"${BN}"  $NC \n"
             ffmpeg \
               -hide_banner \
               -i "${TMP_DIR}"/opt/"${BN}" \
@@ -169,7 +169,8 @@ case "$1" in
       sleep .2
 
     done
-    #printf "$BLUE Encoded         (-)-(${#NDL[@]}/${#NDL[@]}) $NC \n\n"
+
+    printf "$BLUE Encoded         (-)-(${#NDL[@]}/${#NDL[@]}) $NC \n\n"
 
     mkdir -p "${OUT_DIR}"
 
@@ -214,7 +215,4 @@ case "$1" in
     printf "Unhandled URL type: $1"
 esac
 
-sleep 30
-clear
-printf "$BLUE Done. $NC"
-sleep 10
+sleep 1
