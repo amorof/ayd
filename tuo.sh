@@ -118,6 +118,7 @@ case "$1" in
           extension="${filenamebase##*.}"
 
           if [ -z "${extension}" ]; then
+            echo $extension
 
             mv "${file}" "${TMP_DIR}/opt/"
 
@@ -140,7 +141,7 @@ case "$1" in
         done
       fi
 
-      clear
+      #clear
       printf "$BLUE $YDL_PID $NC \n"
       printf "$BLUE $(ls "${TMP_DIR}/opt/") $NC \n"
 
