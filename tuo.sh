@@ -139,10 +139,12 @@ case "$1" in
         done
       fi
 
-      clear
-      printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n\n"
-      printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n\n"
-      printf "$BLUE coo->$(ls "${TMP_DIR}/cooked/") $NC \n\n"
+      #debug {
+      #clear
+      #printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n\n"
+      #printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n\n"
+      #printf "$BLUE coo->$(ls "${TMP_DIR}/cooked/") $NC \n\n"
+      #  }
 
       NDL=($YDL_PID)
 
