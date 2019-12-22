@@ -106,9 +106,7 @@ case "$1" in
 
     YDL_PID=$!
 
-    FFMPEG_PID=""
-
-      NDL=($YDL_PID)
+    NDL=($YDL_PID)
     while kill -0 "$NDL" >/dev/null 2>&1; do
 
       if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
@@ -144,7 +142,8 @@ case "$1" in
 
       #clear
       printf "$BLUE $YDL_PID $NC \n"
-      printf "$BLUE $(ls "${TMP_DIR}/opt/") $NC \n"
+      printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n"
+      printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n"
 
       NDL=($YDL_PID)
 
