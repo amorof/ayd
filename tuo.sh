@@ -53,7 +53,7 @@ fi
 pip_upg_if_need()
 {
   #If it isn't updated then update
-  if [ $(pip list --outdated 2>&1 | grep $1 | wc -l) -gt 0 ] ; then
+  #if [ $(pip list --outdated 2>&1 | grep $1 | wc -l) -gt 0 ] ; then
 
     #Launch in background stdout and stderr don't show, then get the PID
     pip install --upgrade $1 1>/dev/null 2>/dev/null &
@@ -72,7 +72,7 @@ pip_upg_if_need()
 
     #show when its installed
     printf "$BLUE Upgraded  $1        $NC \n"
-  fi
+  #fi
 }
 
 echo yt
