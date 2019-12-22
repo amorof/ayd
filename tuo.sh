@@ -139,7 +139,7 @@ case "$1" in
                     fi
                 done
             fi
-            NDL= $YDL_PID | wc -w 1>/dev/null
+            NDL= $( $YDL_PID | wc -w )
             #play an animation while it's upgrading the script
             printf "$GREEN Encoding to mp3 $NDL (/) $NC \r"
             sleep .3
