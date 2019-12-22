@@ -118,7 +118,7 @@ case "$1" in
           extension="${filenamebase##*.}"
 
           if [ -z "${extension}" ]; then
-            echo $extension
+            printf "ext->$extension          \n"
 
             mv "${file}" "${TMP_DIR}/opt/"
 
