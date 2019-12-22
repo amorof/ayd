@@ -75,11 +75,8 @@ pip_upg_if_need()
   #fi
 }
 
-echo yt
 pip_upg_if_need youtube-dl
-echo mutagen
 pip_upg_if_need mutagen
-echo done
 case "$1" in
   *youtu*)
 
@@ -215,5 +212,4 @@ case "$1" in
   *)
     printf "Unhandled URL type: $1"
 esac
-
 sleep 1
