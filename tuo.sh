@@ -120,9 +120,10 @@ case "$1" in
 
                     if [ ! "${extension}" = "part" ]; then
 
+                        clear
                         echo "file->" "${file}"
-                        ls "${TMP_DIR}/opt/"*
                         mv "${file}" "${TMP_DIR}/opt/"
+                        ls "${TMP_DIR}/opt/"*
 
                       # ffmpeg \
                       #     -hide_banner \
