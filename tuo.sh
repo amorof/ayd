@@ -120,19 +120,21 @@ case "$1" in
 
                     if [ ! "${extension}" = "part" ]; then
 
+                        echo "${file}"
+                        echo "${TMP_DIR}/opt/"
                         mv "${file}" "${TMP_DIR}/opt/"
 
-                        ffmpeg \
-                            -hide_banner \
-                            -i "${TMP_DIR}"/opt/$(basename -- "${file}") \
-                            -codec:a libmp3lame \
-                            -qscale:a 2 \
-                            -vn \
-                            -map_metadata -1 \
-                            "${TMP_DIR}/cooked/${file##*/}.mp3" 1>/dev/null &
+                      # ffmpeg \
+                      #     -hide_banner \
+                      #     -i "${TMP_DIR}"/opt/$(basename -- "${file}") \
+                      #     -codec:a libmp3lame \
+                      #     -qscale:a 2 \
+                      #     -vn \
+                      #     -map_metadata -1 \
+                      #     "${TMP_DIR}/cooked/${file##*/}.mp3" 1>/dev/null &
 
-                        FFMPEG_PID="$! $FFMPEG_PID"
-                        echo $FFMPEG_PID
+                      # FFMPEG_PID="$! $FFMPEG_PID"
+                      # echo $FFMPEG_PID
 
                     fi
 
