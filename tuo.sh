@@ -119,7 +119,6 @@ case "$1" in
 
                     if [ ! "${extension}" = "part" ]; then
 
-                        clear
                         mv "${file}" "${TMP_DIR}/opt/"
 
                         BN=$(basename -- "${file}")
@@ -132,7 +131,7 @@ case "$1" in
                             -vn \
                             -map_metadata -1 \
                             "${TMP_DIR}/cooked/${file##*/}.mp3" \
-                            1>/dev/null 2>/dev/null &
+                            1>>log.txt 2>>log.txt &
 
                         YDL_PID="$! $YDL_PID"
                     fi
