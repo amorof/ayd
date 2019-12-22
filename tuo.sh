@@ -96,7 +96,6 @@ case "$1" in
       -- "$@" \
       1>$HOME/out.txt 2>$HOME/err.txt &
 
-
     youtube-dl \
       --ignore-errors \
       --format 'bestaudio' \
@@ -166,7 +165,7 @@ case "$1" in
       sleep .3
 
     done
-      sleep 5
+    printf "$BLUE Encoded         (-)-(${#NDL[@]}/${#NDL[@]}) $NC \n"
 
     mkdir -p "${OUT_DIR}"
 
@@ -176,13 +175,27 @@ case "$1" in
       filename="${filenamebase%.*}"
       #mkdir -p "${TMP_DIR}"/cooked/"${filename}"
 
+      filewiked=$(cut -d. -f1 $filename)
 
       if [ ! "${extension}" = "jpg" ]; then
         mkdir -p "${TMP_DIR}"/cooked/"${filename}"
-        mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" \
-          "${TMP_DIR}/cooked/${filename}.${extension}"
 
-        rm "${TMP_DIR}/cooked/${filename}.jpg"
+        if [ -f "${TMP_DIR}/cooked/${filename}.jpg" ]; then
+
+          mid3v2 --picture="${TMP_DIR}/cooked/${filename}.jpg" \
+            "${TMP_DIR}/cooked/${filename}.${extension}"
+
+          rm "${TMP_DIR}/cooked/${filename}.jpg"
+
+        elif [ -f "${TMP_DIR}/cooked/${filewiked}.jpg" ];then
+
+          mid3v2 --picture="${TMP_DIR}/cooked/${filewiked}.jpg" \
+            "${TMP_DIR}/cooked/${filename}.${extension}"
+
+          rm "${TMP_DIR}/cooked/${filename}.jpg"
+
+        fi
+
         mv "${file}" "${TMP_DIR}"/cooked/"${filename}"/
       fi
     done
