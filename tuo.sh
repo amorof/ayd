@@ -142,8 +142,7 @@ case "$1" in
         done
       fi
 
-      #clear
-      printf "$BLUE $YDL_PID $NC \n"
+      clear
       printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n"
       printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n"
 
@@ -168,6 +167,7 @@ case "$1" in
       sleep .3
 
     done
+      sleep 5
 
     mkdir -p "${OUT_DIR}"
 
