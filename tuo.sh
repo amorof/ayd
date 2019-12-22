@@ -136,14 +136,14 @@ case "$1" in
 
             YDL_PID="$! $YDL_PID"
 
-            clear
-            printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n\n"
-            printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n\n"
-            printf "$BLUE coo->$(ls "${TMP_DIR}/cooked/") $NC \n\n"
           fi
         done
       fi
 
+      clear
+      printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n\n"
+      printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n\n"
+      printf "$BLUE coo->$(ls "${TMP_DIR}/cooked/") $NC \n\n"
 
       NDL=($YDL_PID)
 
