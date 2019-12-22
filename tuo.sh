@@ -116,8 +116,9 @@ case "$1" in
           filenamebase=$(basename -- "$file")
           extension="${filenamebase##*.}"
 
+            printf "pre--ext->$extension          \n"
           if [ -z "${extension}" ]; then
-            printf "ext->$extension          \n"
+            printf "post-ext->$extension          \n"
 
             mv "${file}" "${TMP_DIR}/opt/"
 
