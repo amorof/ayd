@@ -112,7 +112,6 @@ case "$1" in
 
             if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
 
-                sleep 1
                 for file in "${TMP_DIR}"/raw/* ; do
 
                     filenamebase=$(basename -- "$file")
@@ -135,17 +134,10 @@ case "$1" in
                             "${TMP_DIR}/cooked/${file##*/}.mp3" \
                             1>/dev/null 2>/dev/null &
 
-                        FFMPEG_PID="$! $FFMPEG_PID"
-
+                        YDL_PID="$! $YDL_PID"
                     fi
-
                 done
-
             fi
-
-        done
-
-        while kill -0 "$FFMPEG_PID" >/dev/null 2>&1; do
             #play an animation while it's upgrading the script
             printf "$GREEN Encoding to mp3 ayd (/) $NC \r"
             sleep .3
@@ -153,7 +145,6 @@ case "$1" in
             sleep .3
             printf "$GREEN Encoding to mp3 ayd (\) $NC \r"
             sleep .3
-
         done
 
         mkdir -p "${OUT_DIR}"
