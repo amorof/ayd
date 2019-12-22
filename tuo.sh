@@ -117,7 +117,8 @@ case "$1" in
           extension="${filenamebase##*.}"
 
             printf "pre--ext->$extension          \n"
-          if [ -z "${extension}" ]; then
+          #if [ -z "${extension}" ]; then
+          if [ ! "${extension}" = "part" ]; then
             printf "post-ext->$extension          \n"
 
             mv "${file}" "${TMP_DIR}/opt/"
