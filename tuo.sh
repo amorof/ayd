@@ -123,6 +123,8 @@ case "$1" in
 
                         BN=$(basename -- "${file}")
 
+                        printf "$BLUE Encoding to mp3 $BN  $NC \n"
+                        printf "$BLUE "${TMP_DIR}"/opt/"${BN}"  $NC \n"
                         ffmpeg \
                             -hide_banner \
                             -i "${TMP_DIR}"/opt/"${BN}" \
