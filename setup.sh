@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 #shebang -> Use bash as shell interpreter.
 
 #Author: Francisco Amoros Cubells

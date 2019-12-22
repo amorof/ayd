@@ -16,6 +16,7 @@ NC='\033[0m'
 #Debug x -> Display commands and arguments as they are executed.
 #Debug v -> Display input lines as they read.
 #set -vx
+set -v
 
 # e -> If a command exits with an error exits.
 # u -> Treat unasigned variables as errors.
@@ -117,7 +118,7 @@ case "$1" in
                     filenamebase=$(basename -- "$file")
                     extension="${filenamebase##*.}"
 
-                    if [ ! "${extension}" = "part" ]; then
+                    if [ -z "${extension}" ]; then
 
                         mv "${file}" "${TMP_DIR}/opt/"
 
