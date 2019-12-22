@@ -145,7 +145,16 @@ case "$1" in
 
         done
 
-        wait $FFMPEG_PID
+        while kill -0 "$FFMPEG_PID" >/dev/null 2>&1; do
+            #play an animation while it's upgrading the script
+            printf "$GREEN Encoding to mp3 ayd (/) $NC \r"
+            sleep .3
+            printf "$GREEN Encoding to mp3 ayd (|) $NC \r"
+            sleep .3
+            printf "$GREEN Encoding to mp3 ayd (\) $NC \r"
+            sleep .3
+
+        done
 
         mkdir -p "${OUT_DIR}"
 
