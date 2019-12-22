@@ -159,18 +159,19 @@ case "$1" in
       done
 
       #play an animation while it's encoding to mp3
-      printf "$GREEN Encoding to mp3(/)->($count/${#NDL[@]})<-(/)Downloaded$NC\r"
+      ((total=${#NDL[@]} - 1))
+      printf "$GREEN Encoding to mp3(/)->($count/$total)<-(/)Downloaded$NC\r"
       sleep .2
-      printf "$GREEN Encoding to mp3(|)->($count/${#NDL[@]})<-(|)Downloaded$NC\r"
+      printf "$GREEN Encoding to mp3(|)->($count/$total)<-(|)Downloaded$NC\r"
       sleep .2
-      printf "$GREEN Encoding to mp3(\)->($count/${#NDL[@]})<-(\)Downloaded$NC\r"
+      printf "$GREEN Encoding to mp3(\)->($count/$total)<-(\)Downloaded$NC\r"
       sleep .2
-      printf "$GREEN Encoding to mp3(-)->($count/${#NDL[@]})<-(-)Downloaded$NC\r"
+      printf "$GREEN Encoding to mp3(-)->($count/$total)<-(-)Downloaded$NC\r"
       sleep .2
 
     done
 
-    printf "$BLUE Encoded         (-)-(${#NDL[@]}/${#NDL[@]}) $NC \n\n"
+    printf "$BLUE Encoded         (-)                                 $NC \n\n"
 
     mkdir -p "${OUT_DIR}"
 
