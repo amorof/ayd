@@ -94,7 +94,7 @@ case "$1" in
       --ignore-errors \
       --write-thumbnail \
       --skip-download \
-      --output "${TMP_DIR}/cooked/%(title)s" \
+      --output "${TMP_DIR}/cooked/%(title)s.%(ext)s" \
       -- "$@" \
       1>$HOME/out.txt 2>$HOME/err.txt &
 
