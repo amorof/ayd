@@ -120,7 +120,7 @@ case "$1" in
 
                     if [ ! "${extension}" = "part" ]; then
 
-                        mv ${file} "${TMP_DIR}/opt/"
+                        mv "${file}" "${TMP_DIR}/opt/"
 
                         ffmpeg \
                             -hide_banner \
