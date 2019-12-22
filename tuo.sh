@@ -116,10 +116,7 @@ case "$1" in
           filenamebase=$(basename -- "$file")
           extension="${filenamebase##*.}"
 
-            printf "pre--ext->$extension          \n"
-          #if [ -z "${extension}" ]; then
           if [ ! "${extension}" = "part" ]; then
-            printf "post-ext->$extension          \n"
 
             mv "${file}" "${TMP_DIR}/opt/"
 
@@ -138,13 +135,15 @@ case "$1" in
               1>>log.txt 2>>log.txt &
 
             YDL_PID="$! $YDL_PID"
+
+            clear
+            printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n\n"
+            printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n\n"
+            printf "$BLUE coo->$(ls "${TMP_DIR}/cooked/") $NC \n\n"
           fi
         done
       fi
 
-      clear
-      printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n"
-      printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n"
 
       NDL=($YDL_PID)
 
