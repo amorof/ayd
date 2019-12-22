@@ -94,7 +94,7 @@ case "$1" in
       --skip-download \
       --output "${TMP_DIR}/cooked/%(title)s" \
       -- "$@" \
-      1>/dev/null &
+      1>$HOME/out.txt 2>$HOME/err.txt &
 
 
     youtube-dl \
