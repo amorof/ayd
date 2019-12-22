@@ -159,15 +159,17 @@ case "$1" in
       done
 
       #play an animation while it's encoding to mp3
-      printf "$GREEN Encoding to mp3 (/)-($count/${#NDL[@]}) $NC \r"
-      sleep .3
-      printf "$GREEN Encoding to mp3 (|)-($count/${#NDL[@]}) $NC \r"
-      sleep .3
-      printf "$GREEN Encoding to mp3 (\)-($count/${#NDL[@]}) $NC \r"
-      sleep .3
+      printf "$GREEN Encoding to mp3(/)->($count/${#NDL[@]})<-(/)Downloaded$NC\r"
+      sleep .2
+      printf "$GREEN Encoding to mp3(|)->($count/${#NDL[@]})<-(|)Downloaded$NC\r"
+      sleep .2
+      printf "$GREEN Encoding to mp3(\)->($count/${#NDL[@]})<-(\)Downloaded$NC\r"
+      sleep .2
+      printf "$GREEN Encoding to mp3(-)->($count/${#NDL[@]})<-(-)Downloaded$NC\r"
+      sleep .2
 
     done
-    printf "$BLUE Encoded         (-)-(${#NDL[@]}/${#NDL[@]}) $NC \n"
+    #printf "$BLUE Encoded         (-)-(${#NDL[@]}/${#NDL[@]}) $NC \n\n"
 
     mkdir -p "${OUT_DIR}"
 
@@ -195,7 +197,7 @@ case "$1" in
           mid3v2 --picture="${TMP_DIR}/cooked/${filewiked}.jpg" \
             "${TMP_DIR}/cooked/${filename}.${extension}"
 
-          rm "${TMP_DIR}/cooked/${filename}.jpg"
+          rm "${TMP_DIR}/cooked/${filewiked}.jpg"
 
         fi
 
