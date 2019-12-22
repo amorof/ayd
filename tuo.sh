@@ -138,12 +138,13 @@ case "$1" in
                     fi
                 done
             fi
+            NDL= echo $YDL_PID | wc
             #play an animation while it's upgrading the script
-            printf "$GREEN Encoding to mp3 ayd (/) $NC \r"
+            printf "$GREEN Encoding to mp3 $NDL (/) $NC \r"
             sleep .3
-            printf "$GREEN Encoding to mp3 ayd (|) $NC \r"
+            printf "$GREEN Encoding to mp3 $NDL (|) $NC \r"
             sleep .3
-            printf "$GREEN Encoding to mp3 ayd (\) $NC \r"
+            printf "$GREEN Encoding to mp3 $NDL (\) $NC \r"
             sleep .3
         done
 
