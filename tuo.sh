@@ -108,7 +108,8 @@ case "$1" in
 
     FFMPEG_PID=""
 
-    while kill -0 "$YDL_PID" >/dev/null 2>&1; do
+      NDL=($YDL_PID)
+    while kill -0 "$NDL" >/dev/null 2>&1; do
 
       if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
 
