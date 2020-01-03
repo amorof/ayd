@@ -72,11 +72,12 @@ pip_upg_if_need()
 
     #show when its installed
     printf "$BLUE Upgraded  $1        $NC \n"
-  #fi
-}
+    #fi
+  }
 
 pip_upg_if_need youtube-dl
 pip_upg_if_need mutagen
+
 case "$1" in
   *youtu*)
 
@@ -105,70 +106,127 @@ case "$1" in
     YDL_PID=$!
 
     NDL=($YDL_PID)
-    while kill -0 "$NDL" >/dev/null 2>&1; do
 
-      if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
+    if echo $1 | grep -q "playlist";then
 
-        for file in "${TMP_DIR}"/raw/* ; do
+      while kill -0 "$NDL" >/dev/null 2>&1; do
 
-          filenamebase=$(basename -- "$file")
-          extension="${filenamebase##*.}"
+        if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
 
-          if [ ! "${extension}" = "part" ]; then
+          for file in "${TMP_DIR}"/raw/* ; do
 
-            mv "${file}" "${TMP_DIR}/opt/"
+            filenamebase=$(basename -- "$file")
+            extension="${filenamebase##*.}"
 
-            BN=$(basename -- "${file}")
+            if [ ! "${extension}" = "part" ]; then
 
-            ffmpeg \
-              -hide_banner \
-              -i "${TMP_DIR}"/opt/"${BN}" \
-              -codec:a libmp3lame \
-              -qscale:a 2 \
-              -vn \
-              -map_metadata -1 \
-              "${TMP_DIR}/cooked/${file##*/}.mp3" \
-              1>>log.txt 2>>log.txt &
+              mv "${file}" "${TMP_DIR}/opt/"
 
-            YDL_PID="$! $YDL_PID"
+              BN=$(basename -- "${file}")
 
+              ffmpeg \
+                -hide_banner \
+                -i "${TMP_DIR}"/opt/"${BN}" \
+                -codec:a libmp3lame \
+                -qscale:a 2 \
+                -vn \
+                -map_metadata -1 \
+                "${TMP_DIR}/cooked/${file##*/}.mp3" \
+                1>>log.txt 2>>log.txt &
+
+              YDL_PID="$! $YDL_PID"
+
+            fi
+          done
+        fi
+
+        #debug {
+        #clear
+        #printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n\n"
+        #printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n\n"
+        #printf "$BLUE coo->$(ls "${TMP_DIR}/cooked/") $NC \n\n"
+        #  }
+
+        NDL=($YDL_PID)
+
+        #Count the process finished
+        count=0
+        for i in "${NDL[@]}"; do
+
+          if ! ps -p "$i" > /dev/null
+          then
+            ((count=count + 1))
           fi
         done
-      fi
 
-      #debug {
-      #clear
-      #printf "$BLUE raw->$(ls "${TMP_DIR}/raw/") $NC \n\n"
-      #printf "$BLUE opt->$(ls "${TMP_DIR}/opt/") $NC \n\n"
-      #printf "$BLUE coo->$(ls "${TMP_DIR}/cooked/") $NC \n\n"
-      #  }
+        #play an animation while it's encoding to mp3
+        ((total=${#NDL[@]} - 1))
+        printf "$GREEN Encoding to mp3(/)->($count/$total)<-(/)Downloaded$NC\r"
+        sleep .2
+        printf "$GREEN Encoding to mp3(|)->($count/$total)<-(|)Downloaded$NC\r"
+        sleep .2
+        printf "$GREEN Encoding to mp3(\)->($count/$total)<-(\)Downloaded$NC\r"
+        sleep .2
+        printf "$GREEN Encoding to mp3(-)->($count/$total)<-(-)Downloaded$NC\r"
+        sleep .2
 
-      NDL=($YDL_PID)
-
-      #Count the process finished
-      count=0
-      for i in "${NDL[@]}"; do
-
-        if ! ps -p "$i" > /dev/null
-        then
-          ((count=count + 1))
-        fi
       done
 
-      #play an animation while it's encoding to mp3
-      ((total=${#NDL[@]} - 1))
-      printf "$GREEN Encoding to mp3(/)->($count/$total)<-(/)Downloaded$NC\r"
-      sleep .2
-      printf "$GREEN Encoding to mp3(|)->($count/$total)<-(|)Downloaded$NC\r"
-      sleep .2
-      printf "$GREEN Encoding to mp3(\)->($count/$total)<-(\)Downloaded$NC\r"
-      sleep .2
-      printf "$GREEN Encoding to mp3(-)->($count/$total)<-(-)Downloaded$NC\r"
-      sleep .2
+      printf "$BLUE Encoded         (-)                                 $NC \n\n"
 
-    done
+    else
 
-    printf "$BLUE Encoded         (-)                                 $NC \n\n"
+      while kill -0 "$NDL" >/dev/null 2>&1; do
+        printf "$GREEN Downloading(/)$NC\r"
+        sleep .2
+        printf "$GREEN Downloading(|)$NC\r"
+        sleep .2
+        printf "$GREEN Downloading(\)$NC\r"
+        sleep .2
+        printf "$GREEN Downloading(-)$NC\r"
+        sleep .2
+      done
+
+        if [ "$(ls -A "${TMP_DIR}"/raw/)" ]; then
+
+          for file in "${TMP_DIR}"/raw/* ; do
+
+            filenamebase=$(basename -- "$file")
+            extension="${filenamebase##*.}"
+
+            if [ ! "${extension}" = "part" ]; then
+
+              mv "${file}" "${TMP_DIR}/opt/"
+
+              BN=$(basename -- "${file}")
+
+              ffmpeg \
+                -hide_banner \
+                -i "${TMP_DIR}"/opt/"${BN}" \
+                -codec:a libmp3lame \
+                -qscale:a 2 \
+                -vn \
+                -map_metadata -1 \
+                "${TMP_DIR}/cooked/${file##*/}.mp3" \
+                1>>log.txt 2>>log.txt &
+
+              ENC=$!
+
+              while kill -0 "$ENC" >/dev/null 2>&1; do
+                printf "$GREEN Encoding(/)$NC\r"
+                sleep .2
+                printf "$GREEN Encoding(|)$NC\r"
+                sleep .2
+                printf "$GREEN Encoding(\)$NC\r"
+                sleep .2
+                printf "$GREEN Encoding(-)$NC\r"
+                sleep .2
+              done
+            fi
+          done
+        fi
+        printf "$BLUE Encoded (-)                             $NC \n\n"
+    fi
 
     mkdir -p "${OUT_DIR}"
 
