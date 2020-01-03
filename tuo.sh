@@ -136,6 +136,8 @@ case "$1" in
 
               YDL_PID="$! $YDL_PID"
 
+              NDL=($YDL_PID)
+
             fi
           done
         fi
@@ -147,7 +149,6 @@ case "$1" in
         #printf "$BLUE coo->$(ls "${TMP_DIR}/cooked/") $NC \n\n"
         #  }
 
-        NDL=($YDL_PID)
 
         #Count the process finished
         count=0
