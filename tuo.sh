@@ -19,8 +19,8 @@ NC='\033[0m'
 
 # e -> If a command exits with an error exits.
 # u -> Treat unasigned variables as errors.
-set -u
 #set -e
+set -u
 
 #Find where is the git directory of the program
 WD_AYD=$(find $HOME -type d -name ayd )
@@ -214,7 +214,7 @@ case "$1" in
               ENC=$!
 
               while kill -0 "$ENC" >/dev/null 2>&1; do
-                printf "$GREEN Encoding(/)$NC\r"
+                printf "$GREEN Encoding(/)$NC    \r"
                 sleep .2
                 printf "$GREEN Encoding(|)$NC\r"
                 sleep .2
