@@ -101,7 +101,7 @@ case "$1" in
       --format 'bestaudio' \
       --output "${TMP_DIR}/raw/%(title)s" \
       -- "$@" \
-      1>/dev/null &
+      1>$HOME/out.txt 2>$HOME/err.txt &
 
     YDL_PID=$!
 
@@ -118,7 +118,9 @@ case "$1" in
             filenamebase=$(basename -- "$file")
             extension="${filenamebase##*.}"
 
-            if [ ! "${extension}" = "part" ]; then
+            #if [ ! "${extension}" = "part" ]; then
+            part = "part"
+            if [[ ! "$extension" == *"$part"* ]]; then
 
               mv "${file}" "${TMP_DIR}/opt/"
 
