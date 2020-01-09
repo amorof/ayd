@@ -118,7 +118,7 @@ case "$1" in
             filenamebase=$(basename -- "$file")
             extension="${filenamebase##*.}"
 
-            print $extension
+            printf $extension
             #if [ ! "${extension}" = "part" ]; then
             if [ ! $( grep -q "part" <<< $extension ) ]; then
 
