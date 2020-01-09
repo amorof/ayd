@@ -120,7 +120,7 @@ case "$1" in
 
             printf $extension
             #if [ ! "${extension}" = "part" ]; then
-            if [ ! $( grep -q "part" <<< $extension ) ]; then
+            if [[ ! $extension =~ "part"  ]]; then
 
               mv "${file}" "${TMP_DIR}/opt/"
 
