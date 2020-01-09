@@ -77,6 +77,7 @@ pip_upg_if_need()
 
 pip_upg_if_need youtube-dl
 pip_upg_if_need mutagen
+mkdir -p $HOME/logs
 
 case "$1" in
   *youtu*)
@@ -94,14 +95,14 @@ case "$1" in
       --skip-download \
       --output "${TMP_DIR}/cooked/%(title)s.%(ext)s" \
       -- "$@" \
-      1>$HOME/out.txt 2>$HOME/err.txt &
+      1>$HOME/logs/out-thumbnail.txt 2>$HOME/logs/err-thumbnail.txt &
 
     youtube-dl \
       --ignore-errors \
       --format 'bestaudio' \
       --output "${TMP_DIR}/raw/%(title)s" \
       -- "$@" \
-      1>$HOME/out.txt 2>$HOME/err.txt &
+      1>$HOME/logs/out-ytdl.txt 2>$HOME/logs/err-ytdl.txt &
 
     YDL_PID=$!
 
@@ -122,6 +123,9 @@ case "$1" in
             #if [ ! "${extension}" = "part" ]; then
             if [[ ! $extension =~ "part"  ]]; then
 
+              printf $filenamebase
+              printf $extension
+
               mv "${file}" "${TMP_DIR}/opt/"
 
               BN=$(basename -- "${file}")
@@ -134,7 +138,7 @@ case "$1" in
                 -vn \
                 -map_metadata -1 \
                 "${TMP_DIR}/cooked/${file##*/}.mp3" \
-                1>>log.txt 2>>log.txt &
+                1>>$HOME/logs/enc_log.txt 2>>$HOME/logs/enc_err.txt &
 
               YDL_PID="$! $YDL_PID"
 
