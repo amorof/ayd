@@ -119,8 +119,7 @@ case "$1" in
             extension="${filenamebase##*.}"
 
             #if [ ! "${extension}" = "part" ]; then
-            part = "part"
-            if [[ ! "$extension" == *"$part"* ]]; then
+            if [[ ! "$extension" == *"part"* ]]; then
 
               mv "${file}" "${TMP_DIR}/opt/"
 
