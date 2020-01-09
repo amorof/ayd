@@ -119,7 +119,7 @@ case "$1" in
             extension="${filenamebase##*.}"
 
             #if [ ! "${extension}" = "part" ]; then
-            if [[ ! "$extension" == *"part"* ]]; then
+            if [ ! $( grep -q "part" <<< $extension ) ]; then
 
               mv "${file}" "${TMP_DIR}/opt/"
 
