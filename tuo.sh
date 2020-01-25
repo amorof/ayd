@@ -63,11 +63,11 @@ pip_upg_if_need()
     while kill -0 "$INS_PID" >/dev/null 2>&1; do
       #play an animation while it's installing the program
       printf "$GREEN Upgrading $1 (/) $NC \r"
-      sleep .3
+      sleep .1
       printf "$GREEN Upgrading $1 (|) $NC \r"
-      sleep .3
+      sleep .1
       printf "$GREEN Upgrading $1 (\) $NC \r"
-      sleep .3
+      sleep .1
     done
 
     #show when its installed
@@ -277,4 +277,6 @@ case "$1" in
   *)
     printf "Unhandled URL type: $1"
 esac
-sleep 1
+
+sleep .5
+exit 0
