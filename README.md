@@ -11,5 +11,7 @@ Android-Music-Download
 
 
 TODO:
+  - Check when the cover doesnt correspond.
+  - find a way to search for the tags automaticaly.
   - At finish send a notification.
   - Set the script to put termux in bg
